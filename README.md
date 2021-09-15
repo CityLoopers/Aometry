@@ -1,2 +1,2 @@
-# Dandrews
+# Aometry
 Custom Discord Bot 
