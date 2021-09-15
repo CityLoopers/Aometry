@@ -4,16 +4,11 @@
 
 | Version | Supported          |
 | ------- | ------------------ |
-| c4.0   | :x:                |
-| 3.4.x   | :white_check_mark: |
-| < 3.4   | :x:                |
+| 21.09b  | :white_check_mark: |
+| 21.09.X | :white_check_mark: |
+| < 21.09 | :x:                |
 
-c = Canary
 
 ## Reporting a Vulnerability
 
-Use this section to tell people how to report a vulnerability.
-
-Tell them where to go, how often they can expect to get an update on a
-reported vulnerability, what to expect if the vulnerability is accepted or
-declined, etc.
+Please send an email or message to the developers, preferably on the Discord support server
