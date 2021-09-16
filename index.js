@@ -1,19 +1,12 @@
-const Discord = require('discord.js');
-const { Intents, Collection } = Discord;
-const client = new Discord.Client({
-    intents: [
-        Intents.FLAGS.GUILDS,
-        Intents.FLAGS.GUILD_MESSAGES,
-        Intents.FLAGS.GUILD_INVITES
-    ]
-});
+const { Client, Collection } = require('discord.js');
+const client = new Client({ intents: 32767 });
+module.exports = client;
 const { token } = require('./config.json');
 
 client.commands = new Collection();
-client.cooldowns = new Collection();
 
-['eventsHandler', 'commandsHandler'].forEach(handler => {
-    require(`./handlers/${handler}`)(client, Discord);
+['events', 'commands'].forEach(handler => {
+    require(`./handlers/${handler}`)(client);
 });
 
 client.login(token);

@@ -16,6 +16,7 @@ module.exports = {
         const LogEmbed = new MessageEmbed()
             .setColor('GREEN')
             .setDescription(`${member} just joined the server!`)
+            .setThumbnail(member.user.displayAvatarURL({ dynamic: true }))
             .setTimestamp();
 
         member.guild.channels.cache.get('888053739406118922').send({ embeds: [LogEmbed] });
