@@ -19,7 +19,7 @@ module.exports = {
             .setThumbnail(member.user.displayAvatarURL({ dynamic: true }))
             .setTimestamp();
 
-        member.guild.channels.cache.get('888053739406118922').send({ embeds: [LogEmbed] });
+        member.guild.channels.cache.get('887672604054405120').send({ embeds: [LogEmbed] });
 
     }
 }
