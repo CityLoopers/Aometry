@@ -1,6 +1,6 @@
 const { MessageEmbed } = require('discord.js');
 module.exports = {
-    name: 'support',
+    name: "support",
     description: "Sends the support message",
     execute(client, interaction) {
         const Response = new MessageEmbed()

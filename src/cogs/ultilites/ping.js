@@ -1,6 +1,6 @@
 const { MessageEmbed } = require('discord.js');
 module.exports = {
-    name: 'ping',
+    name: "ping",
     description: "Returns the clients ping",
     permission: "ADMINISTRATOR",
     execute(client, interaction) {
