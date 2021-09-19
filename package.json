@@ -1,15 +1,23 @@
 {
-    "name": "aometry",
-    "version": "21.09.01",
-    "description": "Multipurpose Discord Bot",
-    "main": "index.js",
-    "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
-    },
-    "author": "Finneh",
-    "license": "ISC",
-    "dependencies": {
-        "discord.js": "^13.1.0",
-        "moment": "^2.29.1"
-    }
+  "name": "aometry",
+  "version": "21.9.1",
+  "description": "Multipurpose Discord Bot",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Finneh",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^13.1.0",
+    "moment": "^2.29.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Enroute-Transport/Aometry.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Enroute-Transport/Aometry/issues"
+  },
+  "homepage": "https://github.com/Enroute-Transport/Aometry#readme"
 }
