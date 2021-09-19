@@ -1,5 +1,4 @@
 const { Client, CommandInteraction, MessageEmbed } = require('discord.js')
-const { execute } = require('./ban')
 
 module.exports = {
   name: 'clearchat',
