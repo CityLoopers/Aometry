@@ -14,7 +14,7 @@ module.exports = {
      * @param {Client} client 
      * @param {CommandInteraction} interaction 
      */
-    execute(client, interaction) {
+    execute(interaction, client) {
         const Target = interaction.options.getUser('user');
 
         const Response = new MessageEmbed()
@@ -23,7 +23,7 @@ module.exports = {
             .setImage(Target.displayAvatarURL({ dynamic: true }))
             .setFooter(`Requested By ${interaction.user.tag}`, interaction.user.displayAvatarURL({ dynamic: true }))
 
-        interaction.followUp({ embeds: [Response] })
+        interaction.reply({ embeds: [Response] })
 
     }
 }
