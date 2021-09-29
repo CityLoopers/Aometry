@@ -1,0 +1,18 @@
+{
+    "name": "aometry",
+    "version": "21.10.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [],
+    "author": "finneh",
+    "license": "ISC",
+    "dependencies": {
+        "ascii-table": "^0.0.9",
+        "discord.js": "^13.1.0",
+        "glob": "^7.2.0",
+        "mongoose": "^6.0.8"
+    }
+}
