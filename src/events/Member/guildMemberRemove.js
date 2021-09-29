@@ -14,14 +14,23 @@ module.exports = {
         });
         const GoodBye = new MessageEmbed()
             .setColor('RED')
-            .setAuthor(user.tag, user.avatarURL({ dynamic: true, size: 512 }))
+            .setAuthor(`Goodbye`, user.avatarURL({ dynamic: true, size: 512 }))
             .setThumbnail(user.avatarURL({ dynamic: true, size: 512 }))
             .setDescription(`
             ${member} left **${guild.name}**\n
             Joined: <t:${parseInt(member.joinedTimestamp / 1000)}:R>\n
             Latest Member Count: **${guild.memberCount}**`)
-            .setFooter(`ID: ${user.id}`)
+            .setFooter(`${user.tag}`)
+            .setTimestamp();
 
         Leaver.send({ embeds: [GoodBye] });
+
+        const LogEmbed = new MessageEmbed()
+            .setColor('RED')
+            .setDescription(`${member} left :(`)
+            .setThumbnail(user.displayAvatarURL({ dynamic: true }))
+            .setTimestamp();
+
+        member.guild.channels.cache.get('887672604054405120').send({ embeds: [LogEmbed] });
     }
 }

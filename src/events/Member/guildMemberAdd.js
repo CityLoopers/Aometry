@@ -15,15 +15,24 @@ module.exports = {
             token: 'urtpc4rUngjxIbrJplYN8Q0zq7hCkoV4G-heW_hfkZamtP2A4KlimimiNNoma8ePLjLg',
         });
         const Welcome = new MessageEmbed()
-            .setColor('AQUA')
-            .setAuthor(user.tag, user.avatarURL({ dynamic: true, size: 512 }))
+            .setColor('RANDOM')
+            .setAuthor(`🎉 Welcome! 🎉`, user.avatarURL({ dynamic: true, size: 512 }))
             .setThumbnail(user.avatarURL({ dynamic: true, size: 512 }))
             .setDescription(`
             Welcome ${member} to **${guild.name}**!\n
-            Account Created: <t:${parseInt(user.createdTimestamp / 1000)}:R>\n
             Latest Member Count: **${guild.memberCount}**`)
-            .setFooter(`ID: ${user.id}`)
+            .setFooter(`${user.tag}`)
+            .setTimestamp();
 
         Welcomer.send({ embeds: [Welcome] });
+
+        const LogEmbed = new MessageEmbed()
+            .setColor('GREEN')
+            .setThumbnail(`${user.displayAvatarURL({dynamic: true})}`)
+            .setDescription(`${member} joined the server.`)
+            .addField(`Account Created`, `<t:${parseInt(user.createdTimestamp / 1000)}:R>`)
+            .setTimestamp();
+
+        member.guild.channels.cache.get('888053739406118922').send({ embeds: [LogEmbed] });
     }
 }
