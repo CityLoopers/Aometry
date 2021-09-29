@@ -9,7 +9,7 @@ module.exports = {
      * @param {CommandInteraction} interaction
      */
 
-    async execute(client, interaction) {
+    async execute(interaction, client) {
 
         const Invite = new MessageEmbed()
             .setTitle("Invite Me!")
