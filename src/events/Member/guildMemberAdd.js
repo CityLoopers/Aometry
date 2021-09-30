@@ -7,13 +7,13 @@ module.exports = {
      */
     execute(member) {
         const { user, guild } = member
+        let welcomeChannel = guild.channels.cache.find((channel) => channel.name.toLowerCase() === `welcome`)
+        let logsChannel = guild.channels.cache.find((channel) => channel.name.toLowerCase() === `logs`)
 
-        member.roles.add('882220566675882044');
-
-        const Welcomer = new WebhookClient({
-            id: '892739765806456834',
-            token: 'urtpc4rUngjxIbrJplYN8Q0zq7hCkoV4G-heW_hfkZamtP2A4KlimimiNNoma8ePLjLg',
-        });
+        //const Welcomer = new WebhookClient({
+        //   id: '892739765806456834',
+        //    token: 'urtpc4rUngjxIbrJplYN8Q0zq7hCkoV4G-heW_hfkZamtP2A4KlimimiNNoma8ePLjLg',
+        //});
         const Welcome = new MessageEmbed()
             .setColor('RANDOM')
             .setAuthor(`🎉 Welcome! 🎉`, user.avatarURL({ dynamic: true, size: 512 }))
@@ -24,7 +24,7 @@ module.exports = {
             .setFooter(`${user.tag}`)
             .setTimestamp();
 
-        Welcomer.send({ embeds: [Welcome] });
+        welcomeChannel.send({ embeds: [Welcome] });
 
         const LogEmbed = new MessageEmbed()
             .setColor('GREEN')
@@ -33,6 +33,6 @@ module.exports = {
             .addField(`Account Created`, `<t:${parseInt(user.createdTimestamp / 1000)}:R>`)
             .setTimestamp();
 
-        member.guild.channels.cache.get('888053739406118922').send({ embeds: [LogEmbed] });
+        logsChannel.send({ embeds: [LogEmbed] });
     }
 }

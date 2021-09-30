@@ -8,6 +8,7 @@ module.exports = {
         const count = 1950;
         const Original = oldMessage.content.slice(0, count) + (oldMessage.content.length > count ? " ..." : "");
         const Edited = newMessage.content.slice(0, count) + (newMessage.content.length > count ? "..." : "");
+        let logsChannel = newMessage.channel.guild.channels.cache.find((channel) => channel.name.toLowerCase() === `logs`);
 
         const logEmbed = new MessageEmbed()
             .setColor('ORANGE')
@@ -22,6 +23,6 @@ module.exports = {
         if (newMessage.attachments.size > 0) {
             logEmbed.addField(`Attachments:`, `${newMessage.attachments.map((a) => a.url)}`, true)
         }
-        newMessage.guild.channels.cache.get("887672604054405120").send({ embeds: [logEmbed] })
+        logsChannel.send({ embeds: [logEmbed] })
     }
 }

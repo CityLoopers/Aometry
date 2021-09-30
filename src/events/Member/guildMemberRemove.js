@@ -7,11 +7,13 @@ module.exports = {
      */
     execute(member) {
         const { user, guild } = member
+        let welcomeChannel = guild.channels.cache.find((channel) => channel.name.toLowerCase() === `welcome`)
+        let logsChannel = guild.channels.cache.find((channel) => channel.name.toLowerCase() === `logs`)
 
-        const Leaver = new WebhookClient({
-            id: '892744261244682280',
-            token: '9Zykt71FexGUtXJ9NwmBSyOQY7TN5h2HFNVsStzFQEgFUZzwVQ8u6FzNo5k3EBALJuJw',
-        });
+        //const Leaver = new WebhookClient({
+        // id: '892744261244682280',
+        // token: '9Zykt71FexGUtXJ9NwmBSyOQY7TN5h2HFNVsStzFQEgFUZzwVQ8u6FzNo5k3EBALJuJw',
+        // });
         const GoodBye = new MessageEmbed()
             .setColor('RED')
             .setAuthor(`Goodbye`, user.avatarURL({ dynamic: true, size: 512 }))
@@ -23,7 +25,7 @@ module.exports = {
             .setFooter(`${user.tag}`)
             .setTimestamp();
 
-        Leaver.send({ embeds: [GoodBye] });
+        welcomeChannel.send({ embeds: [GoodBye] });
 
         const LogEmbed = new MessageEmbed()
             .setColor('RED')
@@ -31,6 +33,6 @@ module.exports = {
             .setThumbnail(user.displayAvatarURL({ dynamic: true }))
             .setTimestamp();
 
-        member.guild.channels.cache.get('887672604054405120').send({ embeds: [LogEmbed] });
+        logsChannel.send({ embeds: [LogEmbed] });
     }
 }
