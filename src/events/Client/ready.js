@@ -1,6 +1,7 @@
 const { Client } = require("discord.js");
 const mongoose = require('mongoose');
 const { DBURL } = require('../../config.json');
+const winston = require('winston');
 
 module.exports = {
     name: 'ready',
@@ -10,7 +11,21 @@ module.exports = {
      * @param {Client} client 
      */
     execute(client) {
-        console.log(`✅ Aometry v21.10.0 Ready!`);
+        const logger = winston.createLogger({
+            transports: [
+                new winston.transports.Console(),
+                new winston.transports.File({ filename: 'log' }),
+            ],
+            format: winston.format.printf(log => `[${log.level.toUpperCase()}] - ${log.message}`),
+        });
+        
+        client.on('ready', () => logger.log('info', 'The bot is online!'));
+        client.on('debug', m => logger.log('debug', m));
+        client.on('warn', m => logger.log('warn', m));
+        client.on('error', m => logger.log('error', m));
+        
+        process.on('uncaughtException', error => logger.log('error', error));
+        
         client.user.setActivity("to /help", { type: 'LISTENING' });
 
         if (!DBURL) return;
