@@ -43,7 +43,7 @@ module.exports = {
         const result = Math.random()
             .toString(36)
             .substring(2, 7)
-        const ticketUser = interaction.user.id;
+        const User = interaction.user;
         const logsChannelId = '889175556254498886'
         const logsChannel = interaction.guild.channels.cache.get(logsChannelId)
         const supportChannelId = '887549849002733598'
@@ -51,7 +51,7 @@ module.exports = {
             supportChannelId
         )
         const ticketChannel = await supportChannel.threads.create({
-            name: `${interaction.user.tag}-${result}`,
+            name: `${User.tag}-${result}`,
             autoArchiveDuration: 60,
             reason: `User created a ticket`
         })
@@ -61,19 +61,19 @@ module.exports = {
             .setColor('YELLOW')
             .setAuthor(
                 'New Ticket Created',
-                `${interaction.user.displayAvatarURL({ dynamic: true })}`
+                `${User.displayAvatarURL({ dynamic: true })}`
             )
-            .setDescription(`Ticket Created by ${interaction.user}`)
+            .setDescription(`Ticket Created by ${User}`)
             .addField('Reason', `${ticketReason}`)
             .addField('Ticket Channel', `${ticketChannel}`)
-            .setThumbnail(`${interaction.user.displayAvatarURL({ dynamic: true })}`)
+            .setThumbnail(`${User.displayAvatarURL({ dynamic: true })}`)
         logsChannel.send({ embeds: [newTicket] })
         interaction.reply(`A ticket has been created! Check it out ${ticketChannel}`)
         const ticketManage = new MessageEmbed()
             .setColor('YELLOW')
             .setAuthor('Thanks for creating a ticket!')
-            .setThumbnail(`${interaction.user.displayAvatarURL({ dynamic: true })}`)
-            .setDescription(`Ticket Created by ${interaction.user}`)
+            .setThumbnail(`${User.displayAvatarURL({ dynamic: true })}`)
+            .setDescription(`Ticket Created by ${User}`)
             .addField('Reason', `${ticketReason}`)
             .addField('Close this ticket', `Close this ticket by clicking the 🔒`)
 
@@ -83,7 +83,7 @@ module.exports = {
             .setLabel(`🔒 Close Ticket`)
             .setStyle('SUCCESS')
         )
-        ticketChannel.send({ content: `<@&882220499927699456>${interaction.user}`, embeds: [ticketManage], components: [CloseTicket] }).then(sentMessage => {
+        ticketChannel.send({ content: `<@&882220499927699456> ${User}`, embeds: [ticketManage], components: [CloseTicket] }).then(sentMessage => {
             sentMessage.react(`🔒`)
         });
         //const filter = (interaction) => interaction.customId === 'button' && interaction.user.id === ticketUser;
