@@ -3,7 +3,7 @@
 # Aometry
 
 ![GitHub top language](https://img.shields.io/github/languages/top/Enroute-Transport/Aometry?color=0072CE&style=for-the-badge)
-![Requires](https://img.shields.io/badge/requires-discordJS-333434?style=for-the-badge)
+![Requires](https://img.shields.io/badge/requires-discordJS-5865F2?style=for-the-badge)
 
 An awesome multipurpose discord bot build using [discord.js v13](https://discord.js.org) with support for slash commands and context menus
 
