@@ -1,5 +1,5 @@
 const { Client, CommandInteraction, MessageEmbed } = require('discord.js');
-const db = require('../../schemas/warnings');
+const Warning = require('../../schemas/warnings');
 
 module.exports = {
         name: 'warn',
@@ -86,13 +86,13 @@ module.exports = {
             const Reason = interaction.options.getString('reason');
             const Evidence =
                 interaction.options.getString('evidence') || 'None Provided';
-            const WarnID = interaction.options.getNumber('id') - 1;
-            const WarnDate = new Date(
+            const warnID = interaction.options.getNumber('id') - 1;
+            const warnDate = new Date(
                 interaction.createdTimestamp
             ).toLocaleDateString();
 
             if (Sub === 'add') {
-                db.findOne({
+                Warning.findOne({
                         guildID: interaction.guildID,
                         userId: Target.id,
                         UserTag: Target.user.tag,
@@ -100,7 +100,7 @@ module.exports = {
                     async(err, data) => {
                         if (err) console.log(err);
                         if (!data) {
-                            data = new db({
+                            data = new Warning({
                                 guildID: interaction.guildId,
                                 userId: Target.id,
                                 UserTag: Target.user.tag,
@@ -109,7 +109,7 @@ module.exports = {
                                     ExecuterTag: interaction.user.tag,
                                     Reason: Reason,
                                     Evidence: Evidence,
-                                    Date: WarnDate,
+                                    Date: warnDate,
                                 }, ],
                             });
                         } else {
@@ -118,7 +118,7 @@ module.exports = {
                                 ExecuterTag: interaction.user.tag,
                                 Reason: Reason,
                                 Evidence: Evidence,
-                                Date: WarnDate,
+                                Date: warnDate,
                             };
                             data.Content.push(obj);
                         }
@@ -136,7 +136,7 @@ module.exports = {
                     ],
                 });
             } else if (Sub === 'check') {
-                db.findOne({
+                Warning.findOne({
                             guildID: interaction.guildID,
                             userId: Target.id,
                             UserTag: Target.user.tag,
@@ -170,7 +170,7 @@ module.exports = {
         }
       );
     } else if (Sub === 'remove') {
-      db.findOne (
+      Warning.findOne (
         {
           guildID: interaction.guildID,
           userId: Target.id,
@@ -179,14 +179,14 @@ module.exports = {
         async (err, data) => {
           if (err) console.log(err);
           if (data) {
-            data.Content.splice (WarnID, 1);
+            data.Content.splice (warnID, 1);
             interaction.reply ({
               embeds: [
                 new MessageEmbed ()
                   .setTitle ('WARNINGS')
                   .setColor ('BLURPLE')
                   .setDescription (
-                    `${Target.user.tag}'s warning id: ${WarnID + 1} has been removed!`
+                    `${Target.user.tag}'s warning id: ${warnID + 1} has been removed!`
                   ),
               ],
             });
@@ -204,7 +204,7 @@ module.exports = {
         }
       );
     } else if (Sub === 'clear') {
-      db.findOne (
+      Warning.findOne (
         {
           guildID: interaction.guildID,
           userId: Target.id,
@@ -213,7 +213,7 @@ module.exports = {
         async (err, data) => {
           if (err) console.log(err);
           if (data) {
-            await db.findOneAndDelete ({
+            await Warning.findOneAndDelete ({
               guildID: interaction.guildID,
               userId: Target.id,
               UserTag: Target.user.tag,
