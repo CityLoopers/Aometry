@@ -93,7 +93,7 @@ module.exports = {
 
             if (Sub === 'add') {
                 Warning.findOne({
-                        guildID: interaction.guildID,
+                        guildID: interaction.guildId,
                         userId: Target.id,
                         UserTag: Target.user.tag,
                     },
@@ -137,7 +137,7 @@ module.exports = {
                 });
             } else if (Sub === 'check') {
                 Warning.findOne({
-                            guildID: interaction.guildID,
+                            guildID: interaction.guildId,
                             userId: Target.id,
                             UserTag: Target.user.tag,
                         },
@@ -150,8 +150,7 @@ module.exports = {
                                                     .setTitle('WARNINGS')
                                                     .setColor('BLURPLE')
                                                     .setDescription(
-                                                        `${data.Content
-                      .map ((w, i) => `**ID**: ${i + 1}\n**By**: ${w.ExecutorTag}\n **Date**: ${w.Date}\n**Reason**: ${w.Reason}\n**Evidence**: ${w.Evidence}
+                                                        `${data.Content.map ((w, i) => `**ID**: ${i + 1}\n**By**: ${w.ExecutorTag}\n **Date**: ${w.Date}\n**Reason**: ${w.Reason}
                         \n`)
                       .join (' ')}`
                   ),
@@ -172,7 +171,7 @@ module.exports = {
     } else if (Sub === 'remove') {
       Warning.findOne (
         {
-          guildID: interaction.guildID,
+          guildID: interaction.guildId,
           userId: Target.id,
           UserTag: Target.user.tag,
         },
