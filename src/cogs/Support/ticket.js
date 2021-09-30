@@ -75,7 +75,9 @@ module.exports = {
             .setThumbnail(`${User.displayAvatarURL({ dynamic: true })}`)
             .setDescription(`Ticket Created by ${User}`)
             .addField('Reason', `${ticketReason}`)
+            .addField('While you\'re waiting...','Leave a description of your issue and we\'ll get to it ASAP')
             .addField('Close this ticket', `Close this ticket by clicking the 🔒`)
+            
 
         const CloseTicket = new MessageActionRow().addComponents(
             new MessageButton()
@@ -83,21 +85,14 @@ module.exports = {
             .setLabel(`🔒 Close Ticket`)
             .setStyle('SUCCESS')
         )
-        ticketChannel.send({ content: `<@&882220499927699456> ${User}`, embeds: [ticketManage], components: [CloseTicket] }).then(sentMessage => {
+        ticketChannel.send({ content: `<@&882220499927699456> ${User}`, embeds: [ticketManage] }).then(sentMessage => {
             sentMessage.react(`🔒`)
         });
-        //const filter = (interaction) => interaction.customId === 'button' && interaction.user.id === ticketUser;
-        //const collector = message.channel.createMessageComponentCollector({
-        //   filter,
-        //    max: 1,
-        //  });
-
-        //   collector.on("end", async (ButtonInteraction) => {
-        //    const id = (ButtonInteraction.first().customId);
-        //
-        //    if(id === 'closeticket') {
-        //     ticketChannel.set({content: 'Are you sure you want to close this ticket?', components:[new MessageActionRow().addComponents(new MessageButton().setCustomId('yes').setLabel('Yes').setStyle('SUCCESS'))]})
-        //   }
-        //  })
+        try {
+            let collected = await message.awaitReactions({filter, max: 1, time: 60000, errors: ['time'] })
+            let reaction = collected.first()
+          } catch (e) {
+            // Did not react in time
+          }
     }
 }
