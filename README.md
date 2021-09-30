@@ -1,7 +1,10 @@
 <img width="200" height="200" align="left" style="float: left; margin: 0 10px 0 0;" alt="Karma" src="https://i.imgur.com/8hQoOwS.png"> 
+
 # Aometry
+
 ![GitHub top language](https://img.shields.io/github/languages/top/Enroute-Transport/Aometry?color=0072CE&style=for-the-badge)
 ![Requires](https://img.shields.io/badge/requires-discordJS-333434?style=for-the-badge)
+
 An awesome multipurpose discord bot build using [discord.js v13](https://discord.js.org) with support for slash commands and context menus
 
 ## Requirements
