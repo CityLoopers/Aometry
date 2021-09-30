@@ -1,7 +1,6 @@
 const { Client } = require("discord.js");
 const mongoose = require('mongoose');
 const { DBURL } = require('../../config.json');
-const modmailClient = require("./modmail");
 
 module.exports = {
     name: 'ready',
