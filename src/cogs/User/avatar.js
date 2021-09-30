@@ -7,7 +7,7 @@ module.exports = {
         name: "user",
         description: "Select a user.",
         type: "USER",
-        required: true
+        required: false
     }, ],
     /**
      *  
@@ -15,7 +15,7 @@ module.exports = {
      * @param {CommandInteraction} interaction 
      */
     execute(interaction, client) {
-        const Target = interaction.options.getUser('user');
+        const Target = interaction.options.getUser('user') || interaction.user;
 
         const Response = new MessageEmbed()
             .setColor('YELLOW')

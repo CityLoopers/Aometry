@@ -8,7 +8,7 @@ module.exports = {
         name: "user",
         description: "Select a user.",
         type: "USER",
-        required: true
+        required: false
     }, ],
     /**
      *  
@@ -16,7 +16,7 @@ module.exports = {
      * @param {CommandInteraction} interaction 
      */
     execute(interaction, client) {
-        const Target = interaction.options.getMember("user");
+        const Target = interaction.options.getUser('user') || interaction.user;
 
         const Response = new MessageEmbed()
             .setAuthor(`${Target.user.username}`, Target.user.displayAvatarURL({ dynamic: true }))
