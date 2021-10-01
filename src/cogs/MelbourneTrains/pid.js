@@ -43,7 +43,7 @@ module.exports = {
     async execute(interaction, client) {
         const pidType = interaction.options.getString('pid-type');
         const stationCode = interaction.options.getString('station');
-        const platform = interaction.options.getNumber('platform') || '*';
+        let platform = interaction.options.getNumber('platform') || '*';
 
         const stationName = stationCode ? stations[stationCode].toUpperCase() : '-'
         const pidData = pidTypes.find(pid => pid.value === pidType)
