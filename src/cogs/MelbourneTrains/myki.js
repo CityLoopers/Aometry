@@ -1,5 +1,6 @@
 const { MessageEmbed, CommandInteraction, Client } = require('discord.js');
 const mykiCard = require('../../schemas/myki')
+const cardTypes = require('../../config/myki.json');
 module.exports = {
     /**
      * 
@@ -28,7 +29,7 @@ module.exports = {
         const Sub = interaction.options.getSubcommand(['register', 'balance']);
 
         if (Sub === 'register') {
-            let mykiRegisterNumber = interaction.options.getString('card-number');
+            let mykiRegisterNumber = interaction.options.getString('card-number').replace(/ /g, '');
             mykiCard.findOne({
                     userId: mykiUser,
                 },
