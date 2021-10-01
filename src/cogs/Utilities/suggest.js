@@ -21,11 +21,11 @@ module.exports = {
             required: true,
         }
     ],
-    async execute(interaction, client, guild) {
-        const { options, user } = interaction;
+    async execute(interaction, client) {
+        const { options, user, guild } = interaction;
         const title = options.getString('title');
         const description = options.getString('description');
-        //const suggestionChannel = guild.channels.cache.find((channel) => channel.name.toLowerCase() === `suggestions`)
+        const suggestionChannel = guild.channels.cache.find((channel) => channel.name.toLowerCase() === `suggestions`)
         const identifier = Math.random()
             .toString(36)
             .substring(2, 7)
@@ -50,10 +50,10 @@ module.exports = {
             .setFooter(`Suggested by: ${user.tag} | Suggestion ID: ${identifier}`)
             .setTimestamp()
 
-        const message = await interaction.reply({ embeds: [response], fetchReply: true });
+        const message = await suggestionChannel.send({ embeds: [response], fetchReply: true });
         message.react("✅");
         message.react("⛔")
 
-        // interaction.reply({ embeds: [new MessageEmbed().setColor('GREEN').setTitle('Suggestion Logged!').setDescription(`Thank your for your suggestion, ${user}! \nSuggestion ID: ${identifier}`)] });
+        interaction.reply({ embeds: [new MessageEmbed().setColor('GREEN').setTitle('Suggestion Logged!').setDescription(`Thank your for your suggestion, ${user}! \nSuggestion ID: ${identifier}`)] });
     }
 }
