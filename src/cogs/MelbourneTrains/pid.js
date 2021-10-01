@@ -11,8 +11,8 @@ const puppeteer = require('puppeteer')
 const fs = require('fs')
 
 const stationList = Object.keys(stations).map(code => ({
-  name: stations[code],
-  value: code
+    name: stations[code],
+    value: code
 }))
 
 module.exports = {
@@ -49,20 +49,25 @@ module.exports = {
         const pidData = pidTypes.find(pid => pid.value === pidType)
 
         if (pidData.url.includes('{0}') && !stationCode) {
-          return interaction.reply({ embeds: [new MessageEmbed().setTitle('ERROR').setDescription('Selected PID Type requires station!')] })
+            return interaction.reply({ embeds: [new MessageEmbed().setTitle('ERROR').setDescription('Selected PID Type requires station!')] })
         } else if (!stationName) {
-          return interaction.reply({ embeds: [new MessageEmbed().setTitle('ERROR').setDescription('Invalid station code provided!')] })
+            return interaction.reply({ embeds: [new MessageEmbed().setTitle('ERROR').setDescription('Invalid station code provided!')] })
         }
 
         let extraPIDOption
 
         if (pidType === 'sss-coach-new') {
-          let ranges = [[56, 57, 58], [59, 60, 61, 62], [63, 64, 65, 66], [67, 68, 69, 70]]
-          let range = ranges.find(r => r.includes(platform))
-          extraPIDOption = range ? range.length : 4
+            let ranges = [
+                [56, 57, 58],
+                [59, 60, 61, 62],
+                [63, 64, 65, 66],
+                [67, 68, 69, 70]
+            ]
+            let range = ranges.find(r => r.includes(platform))
+            extraPIDOption = range ? range.length : 4
         } else if (pidType.startsWith('sss-')) {
-          platform = platform + (platform % 2 - 1)
-          platform = `${platform}-${platform + 1}`
+            platform = platform + (platform % 2 - 1)
+            platform = `${platform}-${platform + 1}`
         }
 
         const pidURL = pidData.url.format(stationName, platform, pidType, extraPIDOption)
@@ -71,32 +76,33 @@ module.exports = {
         await interaction.reply('Working on it...')
 
         try {
-          const browser = await puppeteer.launch({args: ['--no-sandbox', '--disable-setuid-sandbox']})
-          const page = await browser.newPage()
+            const browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox'] })
+            const page = await browser.newPage()
 
-          await page.setViewport({
-            width: pidData.size[0],
-            height: pidData.size[1],
-            deviceScaleFactor: 2
-          })
+            await page.setViewport({
+                width: pidData.size[0],
+                height: pidData.size[1],
+                deviceScaleFactor: 2
+            })
 
-          await page.goto(pidURL, { waitUntil: 'networkidle2' })
-          await utils.sleep(4500)
+            await page.goto(pidURL, { waitUntil: 'networkidle2' })
+            await utils.sleep(4500)
 
-          await page.screenshot({path: fileName})
-          await browser.close()
+            await page.screenshot({ path: fileName })
+            await browser.close()
 
-          const response = new MessageEmbed()
-              .setColor('GREEN')
-              .setAuthor(`${interaction.user.tag}\'s Requested PID`)
-              .setImage('attachment://' + fileName)
-              .setFooter(`Requested By ${interaction.user.tag}`, interaction.user.displayAvatarURL({ dynamic: true }))
-              .setTimestamp()
+            const response = new MessageEmbed()
+                .setColor('GREEN')
+                .setAuthor(`${interaction.user.tag}\'s Requested PID`)
+                .setThumbnail(`${interaction.user.displayAvatarURL({dynamic: true })}`)
+                .setImage('attachment://' + fileName)
+                .setFooter(`Requested By ${interaction.user.tag}`, interaction.user.displayAvatarURL({ dynamic: true }))
+                .setTimestamp()
 
-          await interaction.followUp({ embeds: [response], files: [new MessageAttachment(fileName)] })
-          fs.unlink(fileName, () => {})
+            await interaction.followUp({ embeds: [response], files: [new MessageAttachment(fileName)] })
+            fs.unlink(fileName, () => {})
         } catch (e) {
-          return interaction.reply({ embeds: [new MessageEmbed().setTitle('ERROR').setDescription('An error occurred while generating your PID!')] })
+            return interaction.reply({ embeds: [new MessageEmbed().setTitle('ERROR').setDescription('An error occurred while generating your PID!')] })
         }
     }
 }
