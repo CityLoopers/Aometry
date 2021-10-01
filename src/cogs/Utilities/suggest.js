@@ -3,6 +3,7 @@ const { CommandInteraction, MessageEmbed, Guild, GuildMember } = require('discor
  * @param {CommandInteraction} interaction
  * @param {Client} client
  * @param {Guild} guild
+ * @param {GuildMember} member
  */
 module.exports = {
     name: 'suggest',
@@ -24,12 +25,14 @@ module.exports = {
         const { options, user } = interaction;
         const title = options.getString('title');
         const description = options.getString('description');
-        const suggestionChannel = guild.channels.cache.find((channel) => channel.name.toLowerCase() === `suggestions`)
+        //const suggestionChannel = guild.channels.cache.find((channel) => channel.name.toLowerCase() === `suggestions`)
         const identifier = Math.random()
             .toString(36)
             .substring(2, 7)
 
         const response = new MessageEmbed()
+            .setAuthor(`${user.username}`, user.avatarURL({ dynamic: true }))
+            .setThumbnail(user.avatarURL({ dynamic: true, size: 512 }))
             .setColor('YELLOW')
             .setTitle('New Suggestion')
             .setDescription(`New suggestion by: ${user}`)
@@ -44,9 +47,13 @@ module.exports = {
                     "inline": true
                 },
             ])
-            .setFooter(`Suggestion ID: ${identifier}`)
+            .setFooter(`Suggested by: ${user.tag} | Suggestion ID: ${identifier}`)
+            .setTimestamp()
 
-        suggestionChannel.send({ embeds: [response] });
-        interaction.reply({ embeds: [new MessageEmbed().setColor('GREEN').setTitle('Suggestion Logged!').setDescription(`Thank your for your suggestion, ${user}! \nSuggestion ID: ${identifier}`)] });
+        const message = await interaction.reply({ embeds: [response], fetchReply: true });
+        message.react("✅");
+        message.react("⛔")
+
+        // interaction.reply({ embeds: [new MessageEmbed().setColor('GREEN').setTitle('Suggestion Logged!').setDescription(`Thank your for your suggestion, ${user}! \nSuggestion ID: ${identifier}`)] });
     }
 }
