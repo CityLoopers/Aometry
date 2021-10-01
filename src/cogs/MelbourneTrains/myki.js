@@ -105,7 +105,7 @@ module.exports = {
             } catch (e) {
               return { error: 'INVALIDCARD' }
             }
-          // })
+          })
 
           if (mykiData.error) {
             return interaction.reply({ embeds: [new MessageEmbed().setTitle('ERROR').setDescription('Your Myki number is invalid!')] })
