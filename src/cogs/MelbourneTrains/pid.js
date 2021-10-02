@@ -100,7 +100,9 @@ module.exports = {
       .setTimestamp()
 
       await interaction.followUp({ embeds: [response], files: [new MessageAttachment(fileName)] })
-      fs.unlink(fileName, () => {})
+      setTimeout(() => {
+        fs.unlink(fileName, () => {})
+      }, 5000)
     } catch (e) {
       return interaction.reply({ embeds: [new MessageEmbed().setTitle('ERROR').setDescription('An error occurred while generating your PID!')] })
     }
