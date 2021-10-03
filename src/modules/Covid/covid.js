@@ -6,8 +6,10 @@ let covidDataHandlers = {
     VIC: async() => {
         let vicCases = await utils.request('https://www.coronavirus.vic.gov.au/victorian-coronavirus-covid-19-data')
         let vicVaccines = await utils.request('https://www.coronavirus.vic.gov.au/covid-19-vaccine-data')
+        let vaccineData = await utils.request('https://www.coronavirus.vic.gov.au')
         let $ = cheerio.load(vicCases)
         let $$ = cheerio.load(vicVaccines)
+        let $$$ = cheerio.load(vaccineData)
 
         let dailyLocalCases = $('.app-content .rpl-col:nth-child(2) .ch-daily-update .ch-daily-update__statistics-item:nth-child(1) .ch-daily-update__statistics-item-text').text()
         let dailyIntlCases = $('.app-content .rpl-col:nth-child(2) .ch-daily-update .ch-daily-update__statistics-item:nth-child(2) .ch-daily-update__statistics-item-text').text()
@@ -31,6 +33,7 @@ let covidDataHandlers = {
 
         let vicPopulation = 4845711
         let dosePercentage = (parseInt(totalDoses.replace(/,/g, '')) / vicPopulation * 100).toFixed(1);
+        let vaccinePercentage = $$$("#rpl-main-content > div > div > div > div > div:nth-child(6) > div > div > div.ch-daily-update__left > div > div.ch-daily-update__statistics-items > div > div:nth-child(3) > div > div.ch-daily-update__statistics-item-text").text()
 
         return {
             fields: [{
@@ -79,7 +82,7 @@ let covidDataHandlers = {
                 "inline": true
             }, {
                 "name": "% Fully Vaccinated (16+)",
-                "value": `${dosePercentage}%`,
+                "value": vaccinePercentage,
                 "inline": true
             }],
             updatedTime: updatedMoment,
