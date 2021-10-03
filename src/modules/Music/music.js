@@ -7,7 +7,7 @@ const { stream } = require('npmlog');
 const queueDB = new Map();
 
 module.exports = {
-    name: "player",
+    name: "music",
     description: "Joins the current voice channel, if the user is in one.",
     options: [{
             name: "play",
