@@ -25,7 +25,11 @@ module.exports = {
             .setFooter(`${user.tag}`)
             .setTimestamp();
 
-        welcomeChannel.send({ embeds: [GoodBye] });
+        if (welcomeChannel) {
+            welcomeChannel.send({ embeds: [GoodBye] });
+        } else {
+            console.log(`Tried to send welcome message and failed. Guild: ${guild.name} a channel named #welcome needs to be created!`)
+        }
 
         const LogEmbed = new MessageEmbed()
             .setColor('RED')
@@ -33,6 +37,10 @@ module.exports = {
             .setThumbnail(user.displayAvatarURL({ dynamic: true }))
             .setTimestamp();
 
-        logsChannel.send({ embeds: [LogEmbed] });
+        if (logsChannel) {
+            logsChannel.send({ embeds: [LogEmbed] });
+        } else {
+            console.log(`Tried to send leaving log and failed. Guild: ${guild.name} a channel named #logs needs to be created!`)
+        }
     }
 }

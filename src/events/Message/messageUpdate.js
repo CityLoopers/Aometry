@@ -23,6 +23,10 @@ module.exports = {
         if (newMessage.attachments.size > 0) {
             logEmbed.addField(`Attachments:`, `${newMessage.attachments.map((a) => a.url)}`, true)
         }
-        logsChannel.send({ embeds: [logEmbed] })
+        if (logsChannel) {
+            logsChannel.send({ embeds: [logEmbed] });
+        } else {
+            console.log(`Tried to send message edited log and failed. Guild: ${newMessage.guild} a channel named #logs needs to be created!`)
+        }
     }
 }

@@ -29,15 +29,25 @@ module.exports = {
             .setFooter(`${user.tag}`)
             .setTimestamp();
 
-        welcomeChannel.send({ embeds: [Welcome] });
-
+        if (welcomeChannel) {
+            welcomeChannel.send({ embeds: [Welcome] });
+        } else {
+            console.log(`Tried to send welcome message and failed. Guild: ${guild.name} a channel named #welcome needs to be created!`)
+        }
         const LogEmbed = new MessageEmbed()
             .setColor('GREEN')
-            .setThumbnail(`${user.displayAvatarURL({dynamic: true})}`)
+            .setThumbnail(user.displayAvatarURL)
             .setDescription(`${member} joined the server.`)
             .addField(`Account Created`, `<t:${parseInt(user.createdTimestamp / 1000)}:R>`)
             .setTimestamp();
 
-        logsChannel.send({ embeds: [LogEmbed] });
+        if (logsChannel) {
+            logsChannel.send({ embeds: [LogEmbed] });
+        } else {
+            console.log(`Tried to send welcome log and failed. Guild: ${guild.name} a channel named #logs needs to be created!`)
+        }
+
+
+
     }
 }
