@@ -9,7 +9,7 @@ module.exports = {
         description: " Guild Member Events.",
         type: "STRING",
         required: true,
-        choice: [{
+        choices: [{
                 name: "guildMemberAdd",
                 value: 'guildMemberAdd'
             },
