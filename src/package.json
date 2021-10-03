@@ -10,16 +10,20 @@
     "author": "finneh",
     "license": "ISC",
     "dependencies": {
+        "@discordjs/voice": "^0.6.0",
         "ascii-table": "^0.0.9",
         "cheerio": "^1.0.0-rc.10",
         "discord.js": "^13.1.0",
+        "ffmpeg": "^0.0.4",
         "glob": "^7.2.0",
         "moment": "^2.29.1",
         "moment-timezone": "^0.5.33",
         "mongoose": "^6.0.8",
         "node-fetch": "^2.6.1",
+        "npmlog": "^5.0.1",
         "puppeteer": "^10.4.0",
         "reconlx": "^2.4.3",
-        "winston": "^3.3.3"
+        "yt-search": "^2.10.1",
+        "ytdl-core": "^4.9.1"
     }
 }
