@@ -41,7 +41,7 @@ module.exports = {
                             welcomeMessage: welcMessage,
                         },
                     });
-
+                    await data.save();
                     interaction.reply({
                         embeds: [
                             new MessageEmbed().setDescription(
@@ -49,15 +49,18 @@ module.exports = {
                             ),
                         ],
                     });
+
                 }
 
                 if (data) {
-                    await guildConfig.replaceOne({
-                        welcomeData: {
+
+                    data.welcomeData = {
                             welcomeChannel: welcChannel.id,
                             welcomeMessage: welcMessage,
                         },
-                    });
+
+
+                        await data.save();
                     interaction.reply({
                         embeds: [
                             new MessageEmbed().setDescription(
@@ -66,7 +69,7 @@ module.exports = {
                         ],
                     });
                 }
-                data.save();
+
             }
         );
     },
