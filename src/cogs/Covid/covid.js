@@ -29,7 +29,7 @@ let covidDataHandlers = {
     let updatedAt = $('.app-content .rpl-col:nth-child(1)').text().slice(9)
     let updatedMoment = utils.parseTime(updatedAt, 'DD MMM YYYY hh:mma').toDate()
 
-    let vicPopulation = 6648600
+    let vicPopulation = 4845711
 
     return {
       fields: [{
