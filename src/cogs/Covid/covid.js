@@ -1,5 +1,6 @@
 const { CommandInteraction, MessageEmbed } = require('discord.js');
 const utils = require('../../utils');
+const cheerio = require('cheerio');
 
 /*const lgaList = Object.keys(stations).map(code => ({
     name: stations[code],
@@ -67,11 +68,9 @@ module.exports = {
 
         switch (sub) {
             case 'state':
-                let data = {
-                    resource_id: '890da9b3-0976-4de3-8028-e0c22b9a0e09', // the resource id
-                    limit: 5, // get 5 results
-                    q: 'jones' // query for 'jones'
-                };
+                let stateData = utils.request('https://www.coronavirus.vic.gov.au/victorian-coronavirus-covid-19-data')
+                let $ = cheerio.load(stateData);
+                let dailyCases $('.ch-daily-update .ch-daily-update__statistics-item:nth-child(1)')
                 let stateName = interaction.options.getString('state');
                 const stateResponse = new MessageEmbed()
                     .setColor('PURPLE')
@@ -81,47 +80,47 @@ module.exports = {
                     .setDescription('Still working on this command...')
                     .setFields([{
                             "name": "Total Cases",
-                            "value": "39,749",
+                            "value": "41,128",
                             "inline": true
                         },
                         {
                             "name": "Active Cases",
-                            "value": "11,591",
+                            "value": "11,785",
                             "inline": true
                         }, {
                             "name": "Total Deaths",
-                            "value": "866",
+                            "value": "869",
                             "inline": true
                         }, {
                             "name": "New Cases last 24h",
-                            "value": "1,488",
+                            "value": `${dailyCases}`,
                             "inline": true
                         },
                         {
                             "name": "Tests last 24h",
-                            "value": "71,224",
+                            "value": "71,275",
                             "inline": true
                         },
                         {
                             "name": "Deaths Last 24h",
-                            "value": "2",
+                            "value": "3",
                             "inline": true
                         },
                         {
                             "name": "Vaccine Doses last 24h",
-                            "value": "36,878",
+                            "value": "36,248",
                             "inline": true
                         },
 
 
                         {
                             "name": "Total Vaccine Doses",
-                            "value": "3,604,774",
+                            "value": "3,641,164",
                             "inline": true
                         },
                         {
                             "name": "% Fully Vaccinated (16+)",
-                            "value": "51.0%",
+                            "value": "51.9%",
                             "inline": true
                         }
                     ], )
