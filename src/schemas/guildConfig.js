@@ -3,9 +3,7 @@ const { Schema, model } = require('mongoose');
 module.exports = model("GuildConfig", new Schema({
     guildId: String,
     guildName: String,
-    welcomeData: Array,
-    welcomeChannel: String,
-    welcomeMessage: String,
+    welcomeData: Object,
     leaveChannel: String,
     leaveMessage: String,
     logsChannel: String,
