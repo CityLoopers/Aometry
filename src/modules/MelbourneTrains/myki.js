@@ -26,6 +26,10 @@ module.exports = {
         name: 'balance',
         description: 'Check your account balance',
         type: 'SUB_COMMAND',
+    }, {
+        name: 'delete',
+        description: 'Delete your myki account from the database',
+        type: 'SUB_COMMAND',
     }],
     async execute(interaction, client) {
         let mykiUser = interaction.user.id;
@@ -169,6 +173,24 @@ module.exports = {
                     interaction.reply({ embeds: [mykiBalanceEmbed] })
                 } else {
                     interaction.reply({ embeds: [new MessageEmbed().setTitle('ERROR').setDescription('You Must Register your Myki First!')] })
+                }
+            });
+        } else if (sub === 'delete') {
+            mykiCard.findOne({
+                userId: mykiUser
+            }, async(err, data) => {
+                if (err) console.log(err);
+                if (data) {
+                    await mykiCard.findOneAndDelete({
+                        userId: mykiUser
+                    });
+                    const mykiDelete = new MessageEmbed()
+                        .setColor('#C2D840')
+                        .setTitle('Myki Deleted!')
+                        .setDescription(`Your Myki account has been deleted from the database! ${interaction.user}`)
+                        .setTimestamp()
+
+                    interaction.reply({ embeds: [mykiDelete] })
                 }
             });
         }

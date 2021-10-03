@@ -14,7 +14,7 @@ module.exports = async(client) => {
 
     CommandsArray = [];
 
-    (await PG(`${process.cwd()}/cogs/*/*.js`)).map(async(file) => {
+    (await PG(`${process.cwd()}/modules/*/*.js`)).map(async(file) => {
         const command = require(file);
 
         if (!command.name)
@@ -40,6 +40,7 @@ module.exports = async(client) => {
 
     client.on("ready", async() => {
         const MainGuild = await client.guilds.cache.get('882220041477709856');
+
 
         MainGuild.commands.set(CommandsArray).then(async(command) => {
             const Roles = (commandName) => {
