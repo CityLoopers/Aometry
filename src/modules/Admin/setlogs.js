@@ -42,7 +42,7 @@ module.exports = {
 
                 if (data) {
 
-                    data.logsChannel = logChannel,
+                    data.logsChannel = logChannel.id,
 
 
                         await data.save();
