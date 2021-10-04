@@ -1,5 +1,6 @@
-const { Client, CommandInteraction, MessageEmbed } = require('discord.js');
-const Warning = require('../../schemas/warnings');
+/* eslint-disable no-unused-vars */
+const { Client, CommandInteraction, MessageEmbed } = require('discord.js')
+const Warning = require('../../schemas/warnings')
 
 module.exports = {
   name: 'warn',
@@ -13,19 +14,19 @@ module.exports = {
       name: 'user',
       description: 'Choose a user',
       type: 'USER',
-      required: true,
+      required: true
     },
     {
       name: 'reason',
       description: 'Provide a reason',
       type: 'STRING',
-      required: true,
+      required: true
     },
     {
       name: 'evidence',
       description: 'Provide evidence',
       type: 'STRING',
-      required: false,
+      required: false
     }]
   },
   {
@@ -36,7 +37,7 @@ module.exports = {
       name: 'user',
       description: 'Choose a user',
       type: 'USER',
-      required: true,
+      required: true
     }]
   },
   {
@@ -47,13 +48,13 @@ module.exports = {
       name: 'user',
       description: 'Choose a user',
       type: 'USER',
-      required: true,
+      required: true
     },
     {
       name: 'id',
       description: 'Choose a warning to remove',
       type: 'NUMBER',
-      required: true,
+      required: true
     }]
   },
   {
@@ -64,7 +65,7 @@ module.exports = {
       name: 'user',
       description: 'Choose a user',
       type: 'USER',
-      required: true,
+      required: true
     }]
   }],
   /**
@@ -72,30 +73,30 @@ module.exports = {
   * @param {Client} client
   * @param {CommandInteraction} interaction
   */
-  execute(interaction, client) {
+  execute (interaction, client) {
     const Sub = interaction.options.getSubcommand([
       'add',
       'check',
       'remove',
-      'clear',
-    ]);
-    const Target = interaction.options.getMember('user');
-    const Reason = interaction.options.getString('reason');
+      'clear'
+    ])
+    const Target = interaction.options.getMember('user')
+    const Reason = interaction.options.getString('reason')
     const Evidence =
-    interaction.options.getString('evidence') || 'None Provided';
-    const warnID = interaction.options.getNumber('id') - 1;
+    interaction.options.getString('evidence') || 'None Provided'
+    const warnID = interaction.options.getNumber('id') - 1
     const warnDate = new Date(
       interaction.createdTimestamp
-    ).toLocaleDateString();
+    ).toLocaleDateString()
 
     if (Sub === 'add') {
       Warning.findOne({
         guildID: interaction.guildId,
         userId: Target.id,
-        UserTag: Target.user.tag,
+        UserTag: Target.user.tag
       },
-      async(err, data) => {
-        if (err) console.log(err);
+      async (err, data) => {
+        if (err) console.log(err)
         if (!data) {
           data = new Warning({
             guildID: interaction.guildId,
@@ -106,120 +107,120 @@ module.exports = {
               ExecuterTag: interaction.user.tag,
               Reason: Reason,
               Evidence: Evidence,
-              Date: warnDate,
+              Date: warnDate
             }]
-          });
+          })
         } else {
           const obj = {
             ExecuterID: interaction.user.id,
             ExecuterTag: interaction.user.tag,
             Reason: Reason,
             Evidence: Evidence,
-            Date: warnDate,
-          };
-          data.Content.push(obj);
+            Date: warnDate
+          }
+          data.Content.push(obj)
         }
-        data.save();
-      });
+        data.save()
+      })
       interaction.reply({
         embeds: [
           new MessageEmbed()
-          .setTitle('WARNINGS')
-          .setColor('BLURPLE')
-          .setDescription(
+            .setTitle('WARNINGS')
+            .setColor('BLURPLE')
+            .setDescription(
             `Warning Added: ${Target.user.tag} | ||${Target.id}||\n**Reason**:${Reason}\n**Evidence**: ${Evidence}`
-          ),
-        ],
-      });
+            )
+        ]
+      })
     } else if (Sub === 'check') {
       Warning.findOne({
         guildID: interaction.guildId,
         userId: Target.id,
-        UserTag: Target.user.tag,
+        UserTag: Target.user.tag
       },
-      async(err, data) => {
-        if (err) console.log(err);
+      async (err, data) => {
+        if (err) console.log(err)
         if (data) {
           interaction.reply({
             embeds: [
               new MessageEmbed()
-              .setTitle('WARNINGS')
-              .setColor('BLURPLE')
-              .setDescription(
-                `${data.Content.map ((w, i) => `**ID**: ${i + 1}\n**By**: ${w.ExecutorTag}\n **Date**: ${w.Date}\n**Reason**: ${w.Reason}
+                .setTitle('WARNINGS')
+                .setColor('BLURPLE')
+                .setDescription(
+                `${data.Content.map((w, i) => `**ID**: ${i + 1}\n**By**: ${w.ExecutorTag}\n **Date**: ${w.Date}\n**Reason**: ${w.Reason}
                 \n`)
-                .join (' ')}`
-              )
+                .join(' ')}`
+                )
             ]
-          });
+          })
         } else {
-          interaction.reply ({
+          interaction.reply({
             embeds: [
               new MessageEmbed()
-              .setTitle ('WARNINGS')
-              .setColor ('BLURPLE')
-              .setDescription (`${Target.user.tag} has no warnings!`)
+                .setTitle('WARNINGS')
+                .setColor('BLURPLE')
+                .setDescription(`${Target.user.tag} has no warnings!`)
             ]
-          });
+          })
         }
-      });
+      })
     } else if (Sub === 'remove') {
       Warning.findOne({
         guildID: interaction.guildId,
         userId: Target.id,
-        UserTag: Target.user.tag,
+        UserTag: Target.user.tag
       },
       async (err, data) => {
-        if (err) console.log(err);
+        if (err) console.log(err)
         if (data) {
-          data.Content.splice(warnID, 1);
+          data.Content.splice(warnID, 1)
           interaction.reply({
             embeds: [
               new MessageEmbed()
-              .setTitle('WARNINGS')
-              .setColor('BLURPLE')
-              .setDescription(
+                .setTitle('WARNINGS')
+                .setColor('BLURPLE')
+                .setDescription(
                 `${Target.user.tag}'s warning id: ${warnID + 1} has been removed!`
-              )
+                )
             ]
-          });
-          data.save();
+          })
+          data.save()
         } else {
           interaction.reply({
             embeds: [
               new MessageEmbed()
-              .setTitle('WARNINGS')
-              .setColor('BLURPLE')
-              .setDescription(`${Target.user.tag} has no warnings!`)
+                .setTitle('WARNINGS')
+                .setColor('BLURPLE')
+                .setDescription(`${Target.user.tag} has no warnings!`)
             ]
-          });
+          })
         }
-      });
+      })
     } else if (Sub === 'clear') {
-      Warning.findOne ({
+      Warning.findOne({
         guildID: interaction.guildID,
         userId: Target.id,
-        UserTag: Target.user.tag,
+        UserTag: Target.user.tag
       }, async (err, data) => {
-        if (err) console.log(err);
+        if (err) console.log(err)
         if (data) {
-          await Warning.findOneAndDelete ({
+          await Warning.findOneAndDelete({
             guildID: interaction.guildID,
             userId: Target.id,
-            UserTag: Target.user.tag,
-          });
-          interaction.reply ({
+            UserTag: Target.user.tag
+          })
+          interaction.reply({
             embeds: [
-              new MessageEmbed ()
-              .setTitle ('WARNINGS')
-              .setColor ('BLURPLE')
-              .setDescription (
+              new MessageEmbed()
+                .setTitle('WARNINGS')
+                .setColor('BLURPLE')
+                .setDescription(
                 `${Target.user.tag}'s warnings have been cleared! | ||${Target.id}||`
-              ),
-            ],
-          });
+                )
+            ]
+          })
         }
-      });
+      })
     }
-  },
-};
+  }
+}

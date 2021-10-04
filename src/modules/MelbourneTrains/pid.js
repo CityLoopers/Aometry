@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 const {
   Client,
   CommandInteraction,
@@ -40,10 +41,10 @@ module.exports = {
   * @param {CommandInteraction} interaction
   * @param {Client} client
   */
-  async execute(interaction, client) {
-    const pidType = interaction.options.getString('pid-type');
-    const stationCode = interaction.options.getString('station');
-    let platform = interaction.options.getNumber('platform') || '*';
+  async execute (interaction, client) {
+    const pidType = interaction.options.getString('pid-type')
+    const stationCode = interaction.options.getString('station')
+    let platform = interaction.options.getNumber('platform') || '*'
 
     const stationName = stationCode ? stations[stationCode.toUpperCase()] : '-'
     const pidData = pidTypes.find(pid => pid.value === pidType)
@@ -57,13 +58,13 @@ module.exports = {
     let extraPIDOption
 
     if (pidType === 'sss-coach-new') {
-      let ranges = [
+      const ranges = [
         [56, 57, 58],
         [59, 60, 61, 62],
         [63, 64, 65, 66],
         [67, 68, 69, 70]
       ]
-      let range = ranges.find(r => r.includes(platform))
+      const range = ranges.find(r => r.includes(platform))
       extraPIDOption = range ? range.length : 4
     } else if (pidType.startsWith('sss-')) {
       platform = platform + (platform % 2 - 1)
@@ -92,12 +93,12 @@ module.exports = {
       await browser.close()
 
       const response = new MessageEmbed()
-      .setColor('GREEN')
-      .setAuthor(`${interaction.user.tag}\'s Requested PID`)
-      .setThumbnail(`${interaction.user.displayAvatarURL({dynamic: true })}`)
-      .setImage('attachment://' + fileName)
-      .setFooter(`Requested By ${interaction.user.tag}`, interaction.user.displayAvatarURL({ dynamic: true }))
-      .setTimestamp()
+        .setColor('GREEN')
+        .setAuthor(`${interaction.user.tag}'s Requested PID`)
+        .setThumbnail(`${interaction.user.displayAvatarURL({ dynamic: true })}`)
+        .setImage('attachment://' + fileName)
+        .setFooter(`Requested By ${interaction.user.tag}`, interaction.user.displayAvatarURL({ dynamic: true }))
+        .setTimestamp()
 
       await interaction.followUp({ embeds: [response], files: [new MessageAttachment(fileName)] })
       setTimeout(() => {

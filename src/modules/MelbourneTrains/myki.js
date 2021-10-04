@@ -1,6 +1,9 @@
-const { MessageEmbed, CommandInteraction, Client } = require('discord.js');
+/* eslint-disable no-undef */
+/* eslint-disable no-unused-vars */
+/* eslint-disable max-len */
+const { MessageEmbed, CommandInteraction, Client } = require('discord.js')
 const mykiCard = require('../../schemas/myki')
-const { cardTypes } = require('../../config/myki.json');
+const { cardTypes } = require('../../config/myki.json')
 const utils = require('../../utils')
 const cheerio = require('cheerio')
 
@@ -20,77 +23,79 @@ module.exports = {
       name: 'card-number',
       description: 'Enter your card number',
       type: 'STRING',
-      required: true,
+      required: true
     }]
   }, {
     name: 'balance',
     description: 'Check your account balance',
-    type: 'SUB_COMMAND',
+    type: 'SUB_COMMAND'
   }, {
     name: 'delete',
     description: 'Delete your myki account from the database',
-    type: 'SUB_COMMAND',
+    type: 'SUB_COMMAND'
   }],
-  async execute(interaction, client) {
-    let mykiUser = interaction.user.id;
-    const sub = interaction.options.getSubcommand(['register', 'balance']);
+  async execute (interaction, client) {
+    const mykiUser = interaction.user.id
+    const sub = interaction.options.getSubcommand(['register', 'balance'])
 
     if (sub === 'register') {
-      let mykiRegisterNumber = interaction.options.getString('card-number');
+      const mykiRegisterNumber = interaction.options.getString('card-number')
       mykiCard.findOne({
-        userId: mykiUser,
-      }, async(err, data) => {
-        if (err) console.log(err);
+        userId: mykiUser
+      }, async (err, data) => {
+        if (err) console.log(err)
         if (!data) {
+          // eslint-disable-next-line new-cap
           data = new mykiCard({
             userId: mykiUser,
             userName: interaction.user.username,
-            mykiNumber: mykiRegisterNumber,
-          });
+            mykiNumber: mykiRegisterNumber
+          })
           const mykiRegister = new MessageEmbed()
-          .setColor('#C2D840')
-          .setTitle('Myki Registered!')
-          .setDescription(`Thank you for registering your myki! ${interaction.user}`)
-          .setTimestamp()
+            .setColor('#C2D840')
+            .setTitle('Myki Registered!')
+            .setDescription(`Thank you for registering your myki! ${interaction.user}`)
+            .setTimestamp()
 
           interaction.reply({ embeds: [mykiRegister] })
         } else {
           const mykiAlrRegister = new MessageEmbed()
-          .setColor('RED')
-          .setTitle('Myki Already Registered!')
-          .setDescription(`Your Myki is Already Registered! ${interaction.user}`)
-          .setTimestamp()
+            .setColor('RED')
+            .setTitle('Myki Already Registered!')
+            .setDescription(`Your Myki is Already Registered! ${interaction.user}`)
+            .setTimestamp()
 
           interaction.reply({ embeds: [mykiAlrRegister] })
         }
-        data.save();
+        data.save()
       })
     } else if (sub === 'balance') {
       mykiCard.findOne({
-        userId: mykiUser,
-      }, async(err, data) => {
-        if (err) console.log(err);
+        userId: mykiUser
+      }, async (err, data) => {
+        if (err) console.log(err)
         if (data) {
-          let mykiCardNumber = data.mykiNumber;
-          let ptvKey = await utils.getData('myki', 'ptv-key', async() => {
-            let ptvData = await utils.request('https://ptv.vic.gov.au')
-            let $ = cheerio.load(ptvData)
-            let script = Array.from($('body script')).find(s => {
+          const mykiCardNumber = data.mykiNumber
+          const ptvKey = await utils.getData('myki', 'ptv-key', async () => {
+            const ptvData = await utils.request('https://ptv.vic.gov.au')
+            const $ = cheerio.load(ptvData)
+            // eslint-disable-next-line array-callback-return
+            const script = Array.from($('body script')).find((s) => {
               if (s.children[0]) {
-                let t = s.children[0].data
+                const t = s.children[0].data
                 return t.includes('server_state') && t.includes('mykiToken') && t.includes('mapToken')
               }
             }).children[0].data
 
-            let data = JSON.parse(script.slice(script.indexOf('=') + 1))
-            let key = `${data.mykiTime}-${data.mykiToken}`
+            const data = JSON.parse(script.slice(script.indexOf('=') + 1))
+            const key = `${data.mykiTime}-${data.mykiToken}`
 
             return key
           }, 1000 * 60 * 60)
 
-          let mykiData = await utils.getData('myki', mykiCardNumber, async() => {
+          const mykiData = await utils.getData('myki', mykiCardNumber, async () => {
             try {
-              return JSON.parse(await utils.request(`https://mykiapi.ptv.vic.gov.au/v2/myki/card`, {
+              return JSON.parse(await utils.request('https://mykiapi.ptv.vic.gov.au/v2/myki/card', {
                 method: 'POST',
                 body: JSON.stringify({
                   0: {
@@ -98,10 +103,10 @@ module.exports = {
                   }
                 }),
                 headers: {
-                  'authority': 'mykiapi.ptv.vic.gov.au',
-                  'accept': 'application/json',
+                  authority: 'mykiapi.ptv.vic.gov.au',
+                  accept: 'application/json',
                   'content-type': 'application/json',
-                  'referer': 'https://www.ptv.vic.gov.au/tickets/myki/',
+                  referer: 'https://www.ptv.vic.gov.au/tickets/myki/',
                   'x-ptvwebauth': ptvKey
                 },
                 gzip: true
@@ -115,49 +120,49 @@ module.exports = {
             return interaction.reply({ embeds: [new MessageEmbed().setTitle('ERROR').setDescription('Your Myki number is invalid!')] })
           }
 
-          let balance = parseFloat(mykiData.mykiBalance)
-          let expiry = mykiData.mykiCardExpiryDate
-          let topupPending = parseFloat(mykiData.mykiBalanceIncludingPending) - balance
-          let cardType = cardTypes[mykiData.passengerCode]
+          const balance = parseFloat(mykiData.mykiBalance)
+          const expiry = mykiData.mykiCardExpiryDate
+          const topupPending = parseFloat(mykiData.mykiBalanceIncludingPending) - balance
+          const cardType = cardTypes[mykiData.passengerCode]
 
-          let mykiBalanceEmbed = new MessageEmbed()
-          .setColor('#C2D840')
-          .setTitle(`${interaction.user.username}'s Myki Balance`)
-          .setThumbnail(interaction.user.displayAvatarURL({ dynamic: true }))
-          .addFields([{
-            "name": "Balance",
-            "value": `${balance < 0 ? '-$' : '$'}${Math.abs(balance).toFixed(2)}`,
-            "inline": true
-          }, {
-            "name": "Expiry",
-            "value": expiry,
-            "inline": true
-          }, {
-            "name": "Card Type",
-            "value": cardType,
-            "inline": true
-          }, {
-            "name": "Topup Pending",
-            "value": `$${topupPending.toFixed(2)}`,
-            "inline": true
-          }]).setTimestamp()
+          const mykiBalanceEmbed = new MessageEmbed()
+            .setColor('#C2D840')
+            .setTitle(`${interaction.user.username}'s Myki Balance`)
+            .setThumbnail(interaction.user.displayAvatarURL({ dynamic: true }))
+            .addFields([{
+              name: 'Balance',
+              value: `${balance < 0 ? '-$' : '$'}${Math.abs(balance).toFixed(2)}`,
+              inline: true
+            }, {
+              name: 'Expiry',
+              value: expiry,
+              inline: true
+            }, {
+              name: 'Card Type',
+              value: cardType,
+              inline: true
+            }, {
+              name: 'Topup Pending',
+              value: `$${topupPending.toFixed(2)}`,
+              inline: true
+            }]).setTimestamp()
 
           if (mykiData.Product && mykiData.Product.length) {
-            let pass = mykiData.Product[0]
+            const pass = mykiData.Product[0]
             console.log(pass)
-            let expiry = moment.tz(pass.lastUtilizationDate, 'Australia/Melbourne')
-            let now = moment.tz('Australia/Melbourne')
+            const expiry = moment.tz(pass.lastUtilizationDate, 'Australia/Melbourne')
+            const now = moment.tz('Australia/Melbourne')
 
-            let difference = moment.duration(expiry.diff(now))
+            const difference = moment.duration(expiry.diff(now))
 
-            let years = Math.abs(difference.years())
-            let months = Math.abs(difference.months())
-            let days = Math.abs(difference.days())
+            const years = Math.abs(difference.years())
+            const months = Math.abs(difference.months())
+            const days = Math.abs(difference.days())
 
-            let hours = Math.abs(difference.hours())
-            let minutes = Math.abs(difference.minutes())
+            const hours = Math.abs(difference.hours())
+            const minutes = Math.abs(difference.minutes())
 
-            let joining = []
+            const joining = []
             if (years) joining.push(years + ' years')
             if (months) joining.push(months + ' months')
             if (days) joining.push(days + ' days')
@@ -174,25 +179,25 @@ module.exports = {
         } else {
           interaction.reply({ embeds: [new MessageEmbed().setTitle('ERROR').setDescription('You Must Register your Myki First!')] })
         }
-      });
+      })
     } else if (sub === 'delete') {
       mykiCard.findOne({
         userId: mykiUser
-      }, async(err, data) => {
-        if (err) console.log(err);
+      }, async (err, data) => {
+        if (err) console.log(err)
         if (data) {
           await mykiCard.findOneAndDelete({
             userId: mykiUser
-          });
+          })
           const mykiDelete = new MessageEmbed()
-          .setColor('#C2D840')
-          .setTitle('Myki Deleted!')
-          .setDescription(`Your Myki account has been deleted from the database! ${interaction.user}`)
-          .setTimestamp()
+            .setColor('#C2D840')
+            .setTitle('Myki Deleted!')
+            .setDescription(`Your Myki account has been deleted from the database! ${interaction.user}`)
+            .setTimestamp()
 
           interaction.reply({ embeds: [mykiDelete] })
         }
-      });
+      })
     }
   }
 }

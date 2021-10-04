@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 const { Client, CommandInteraction, MessageEmbed } = require('discord.js')
 
 module.exports = {
@@ -42,33 +43,36 @@ module.exports = {
   execute (client, interaction) {
     const Target = interaction.options.getMember('user')
 
-    if (Target.id === interaction.member.id)
+    if (Target.id === interaction.member.id) {
       return interaction.followUp({
         embeds: [
           new MessageEmbed()
             .setColor('RED')
-            .setDescription(`⛔ You cannot ban yourself!`)
+            .setDescription('⛔ You cannot ban yourself!')
         ]
       })
+    }
 
-    if (Target.permissions.has('ADMINISTRATOR'))
+    if (Target.permissions.has('ADMINISTRATOR')) {
       return interaction.followUp({
         embeds: [
           new MessageEmbed()
             .setColor('RED')
-            .setDescription(`⛔ You cannot ban an Adminstrator!`)
+            .setDescription('⛔ You cannot ban an Adminstrator!')
         ]
       })
+    }
 
     const Reason = interaction.options.getString('reason')
-    if (Reason.length > 512)
+    if (Reason.length > 512) {
       return interaction.followUp({
         embeds: [
           new MessageEmbed()
             .setColor('RED')
-            .setDescription(`⛔ The reason cannot exceed 512 characters!`)
+            .setDescription('⛔ The reason cannot exceed 512 characters!')
         ]
       })
+    }
 
     const Amount = interaction.options.getString('messages')
     Target.ban({ days: Amount, reason: Reason })
