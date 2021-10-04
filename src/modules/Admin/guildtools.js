@@ -3,7 +3,7 @@
 const { CommandInteraction, MessageEmbed } = require('discord.js')
 module.exports = {
   name: 'guildtools',
-  description: 'Returns the guild ID associated with the guild',
+  description: 'Useful guild information for debugging purposes',
   options: [{
     name: 'id',
     description: 'The guild ID associated with the guild',
@@ -11,6 +11,10 @@ module.exports = {
   }, {
     name: 'owner',
     description: ' Display the guild owner',
+    type: 'SUB_COMMAND'
+  }, {
+    name: 'info-to-console',
+    description: 'Display the guild info in the console',
     type: 'SUB_COMMAND'
   }],
   /**
@@ -26,6 +30,9 @@ module.exports = {
         break
       case 'owner':
         interaction.reply({ embeds: [new MessageEmbed().setDescription(`${owner}`)] })
+        break
+      case 'info-to-console':
+        console.log(interaction.guild)
         break
     }
   }
