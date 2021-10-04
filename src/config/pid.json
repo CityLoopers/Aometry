@@ -1,0 +1,92 @@
+{
+	"pidTypes": [{
+      "name": "FSS Escalator",
+			"value": "fss-escalator",
+      "size": [1800, 3200],
+      "url": "https://vic.transportsg.me/mockups/get?station={0}&value={1}&type={2}"
+		},
+		{
+      "name": "FSS Platform",
+			"value": "fss-platform",
+      "size": [3200, 1800],
+      "url": "https://vic.transportsg.me/mockups/get?station={0}&value={1}&type={2}"
+		},
+		{
+      "name": "Train From FSS",
+			"value": "trains-from-fss",
+      "size": [3200, 1800],
+      "url": "https://vic.transportsg.me/mockups/fss/trains-from-fss"
+		},
+		{
+      "name": "Half Platform",
+			"value": "half-platform",
+      "size": [3200, 900],
+      "url": "https://vic.transportsg.me/mockups/get?station={0}&value={1}&type={2}"
+		},
+		{
+      "name": "Half Platform Bold",
+			"value": "half-platform-bold",
+      "size": [3200, 900],
+      "url": "https://vic.transportsg.me/mockups/get?station={0}&value={1}&type={2}"
+		},
+		{
+      "name": "Platform",
+			"value": "platform",
+      "size": [3200, 1800],
+      "url": "https://vic.transportsg.me/mockups/get?station={0}&value={1}&type={2}"
+		},
+		{
+      "name": "Pre Platform Vertical",
+			"value": "pre-platform-vertical",
+      "size": [1800, 3200],
+      "url": "https://vic.transportsg.me/mockups/get?station={0}&value={1}&type={2}"
+		},
+		{
+      "name": "SSS Platform (Currently Unavailable)",
+			"value": "sss-platform",
+      "size": [3200, 1800],
+      "url": "https://vic.transportsg.me/mockups/sss/platform/{1}"
+		},
+		{
+      "name": "SSS Platform New",
+			"value": "sss-platform-new",
+      "size": [3200, 1800],
+      "url": "https://vic.transportsg.me/mockups/sss-new/platform/{1}"
+		},
+		{
+      "name": "SSS Coach",
+			"value": "sss-coach-new",
+      "size": [1800, 3200],
+      "url": "https://vic.transportsg.me/mockups/sss-new/coach?start=${1}&size=${3}"
+		},
+		{
+      "name": "Concourse Up Down",
+			"value": "conc-up-down",
+      "size": [3200, 1800],
+      "url": "https://vic.transportsg.me/mockups/get?station=${0}&concourseType=up-down&type=concourse"
+		},
+		{
+      "name": "Concourse Interchange",
+			"value": "conc-interchange",
+      "size": [1800, 3200],
+      "url": "https://vic.transportsg.me/mockups/get?station=${0}&concourseType=interchange&type=concourse"
+		},
+		{
+      "name": "2 Line LED",
+			"value": "2-line-led",
+      "size": [3200, 1174],
+      "url": "https://vic.transportsg.me/mockups/get?station={0}&value={1}&type={2}"
+		},
+		{
+      "name": "CRT",
+			"value": "crt",
+      "size": [3200, 1800],
+      "url": "https://vic.transportsg.me/mockups/get?station={0}&value={1}&type={2}"
+		},
+		{
+      "name": "V/Line Half Platform",
+			"value": "vline-half-platform",
+      "size": [3200, 900],
+      "url": "https://vic.transportsg.me/mockups/get?station={0}&value={1}&type={2}"
+		}]
+  }
