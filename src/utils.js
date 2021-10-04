@@ -5,11 +5,12 @@ const fetch = require('node-fetch')
 const EventEmitter = require('events')
 
 const daysOfWeek = ['Sun', 'Mon', 'Tues', 'Wed', 'Thur', 'Fri', 'Sat']
-const locks = {}, caches = {}
+const locks = {}; const caches = {}
 
+// eslint-disable-next-line no-extend-native
 String.prototype.format = (function (i, safe, arg) {
   function format () {
-    var str = this; var len = arguments.length + 1
+    let str = this; const len = arguments.length + 1
     for (i = 0; i < len; arg = arguments[i++]) {
       safe = typeof arg === 'object' ? JSON.stringify(arg) : arg
       str = str.replace(RegExp('\\{' + (i - 1) + '\\}', 'g'), safe)
@@ -22,7 +23,7 @@ String.prototype.format = (function (i, safe, arg) {
 
 module.exports = {
   encodeName: name => name.toLowerCase().replace(/[^\w\d ]/g, '-').replace(/  */g, '-').replace(/--+/g, '-'),
-  pad: (data, length, filler='0') => Array(length).fill(filler).concat([...data.toString()]).slice(-length).join(''),
+  pad: (data, length, filler = '0') => Array(length).fill(filler).concat([...data.toString()]).slice(-length).join(''),
   getYYYYMMDD: time => {
     return time.format('YYYYMMDD')
   },
@@ -32,20 +33,17 @@ module.exports = {
     return time.format('h:mm')
   },
   parseTime: (time, format) => {
-    if (format)
-      return moment.tz(time, format, 'Australia/Melbourne')
-    else
-      return moment.tz(time, 'Australia/Melbourne')
+    if (format) { return moment.tz(time, format, 'Australia/Melbourne') } else { return moment.tz(time, 'Australia/Melbourne') }
   },
-  request: async (url, options={}) => {
-    let start = +new Date()
+  request: async (url, options = {}) => {
+    const start = +new Date()
 
     let body
     let error
 
-    let maxRetries = (options ? options.maxRetries : null) || 3
+    const maxRetries = (options ? options.maxRetries : null) || 3
 
-    let fullOptions = {
+    const fullOptions = {
       timeout: 2000,
       compress: true,
       highWaterMark: 1024 * 1024,
@@ -64,35 +62,35 @@ module.exports = {
 
     if (!body && error) throw error
 
-    let end = +new Date()
-    let diff = end - start
+    const end = +new Date()
+    const diff = end - start
 
     let size = body.headers.get('content-length')
-    let returnData = await (options.raw ? body.buffer() : body.text())
+    const returnData = await (options.raw ? body.buffer() : body.text())
     if (!size) size = returnData.length
 
-    let logMessage = `${diff}ms ${url} ${size}R`
+    const logMessage = `${diff}ms ${url} ${size}R`
     console.log(logMessage)
 
     return returnData
   },
   getDistanceFromLatLon: (lat1, lon1, lat2, lon2) => {
-    var R = 6371 // Radius of the earth in km
-    var dLat = module.exports.deg2rad(lat2-lat1)
-    var dLon = module.exports.deg2rad(lon2-lon1)
-    var a =
-      Math.sin(dLat/2) * Math.sin(dLat/2) +
+    const R = 6371 // Radius of the earth in km
+    const dLat = module.exports.deg2rad(lat2 - lat1)
+    const dLon = module.exports.deg2rad(lon2 - lon1)
+    const a =
+      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
       Math.cos(module.exports.deg2rad(lat1)) * Math.cos(module.exports.deg2rad(lat2)) *
-      Math.sin(dLon/2) * Math.sin(dLon/2)
+      Math.sin(dLon / 2) * Math.sin(dLon / 2)
 
-    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a))
-    var d = R * c // Distance in km
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
+    const d = R * c // Distance in km
     return Math.floor(d * 1000) // distance in m
   },
   deg2rad: deg => {
-    return deg * (Math.PI/180)
+    return deg * (Math.PI / 180)
   },
-  getData: async (lock, key, noMatch, ttl=1000 * 60) => {
+  getData: async (lock, key, noMatch, ttl = 1000 * 60) => {
     if (!locks[lock]) locks[lock] = {}
     if (!caches[lock]) caches[lock] = new TimedCache(ttl)
 
@@ -138,8 +136,7 @@ module.exports = {
 }
 
 class TimedCache {
-
-  constructor(ttl) {
+  constructor (ttl) {
     this.ttl = ttl
     this.cache = {}
     setInterval(() => {
@@ -149,8 +146,8 @@ class TimedCache {
     }, 1000 * 60)
   }
 
-  get(key) {
-    let holder = this.cache[key]
+  get (key) {
+    const holder = this.cache[key]
     if (holder) {
       if (new Date() - holder.created > this.ttl) {
         delete this.cache[key]
@@ -159,18 +156,18 @@ class TimedCache {
     } else return null
   }
 
-  put(key, value) {
+  put (key, value) {
     this.cache[key] = {
       created: new Date(),
       obj: value
     }
   }
 
-  getTTL() {
+  getTTL () {
     return this.ttl
   }
 
-  setTTL(ttl) {
+  setTTL (ttl) {
     this.ttl = ttl
   }
 }
