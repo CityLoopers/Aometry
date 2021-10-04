@@ -1,5 +1,7 @@
+/* eslint-disable new-cap */
 /* eslint-disable no-unused-vars */
 const { CommandInteraction, MessageEmbed, Guild, GuildMember } = require('discord.js')
+const db = require('quick.db')
 /**
  * @param {CommandInteraction} interaction
  * @param {Client} client
@@ -23,10 +25,13 @@ module.exports = {
   }
   ],
   async execute (interaction, client) {
+    const guildConfig = new db.table(`guildConfig_${interaction.guild.id}`)
     const { options, user, guild } = interaction
+    const ownerDM = await guild.fetchOwner()
     const title = options.getString('title')
     const description = options.getString('description')
-    const suggestionChannel = guild.channels.cache.find((channel) => channel.name.toLowerCase() === 'suggestions')
+    const suggestionChannelId = guildConfig.get('suggestChannel') || interaction.reply({ embeds: [new MessageEmbed().setColor('RED').setTitle('Error').setDescription('Suggestions are not enabled in this guild. Please ask the guild administrator to enable them using `/guild-config`')] })
+
     const identifier = Math.random()
       .toString(36)
       .substring(2, 7)
@@ -51,10 +56,16 @@ module.exports = {
       .setFooter(`Suggested by: ${user.tag} | Suggestion ID: ${identifier}`)
       .setTimestamp()
 
-    const message = await suggestionChannel.send({ embeds: [response], fetchReply: true })
-    message.react('✅')
-    message.react('⛔')
+    if (typeof suggestionChannelId === 'string') {
+      const suggestionChannel = guild.channels.cache.get(suggestionChannelId)
+      const message = await suggestionChannel.send({ embeds: [response], fetchReply: true })
+      message.react('✅')
+      message.react('⛔')
 
-    interaction.reply({ embeds: [new MessageEmbed().setColor('GREEN').setTitle('Suggestion Logged!').setDescription(`Thank your for your suggestion, ${user}! \nSuggestion ID: ${identifier}`)] })
+      interaction.reply({ embeds: [new MessageEmbed().setColor('GREEN').setTitle('Suggestion Logged!').setDescription(`Thank your for your suggestion, ${user}! \nSuggestion ID: ${identifier}`)] })
+    } else {
+      // eslint-disable-next-line no-unused-expressions
+      suggestionChannelId
+    }
   }
 }
