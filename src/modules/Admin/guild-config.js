@@ -1,8 +1,5 @@
-/* eslint-disable no-template-curly-in-string */
-/* eslint-disable no-case-declarations */
-/* eslint-disable no-unused-vars */
 /* eslint-disable new-cap */
-/* eslint-disable max-len */
+/* eslint-disable no-case-declarations */
 const { MessageEmbed, CommandInteraction } = require('discord.js')
 const db = require('quick.db')
 
@@ -97,7 +94,7 @@ module.exports = {
 
       case 'welcome':
         const welcomeChannel = interaction.options.getChannel('welcome-channel')
-        const welcomeMessage = interaction.options.getString('welcome-message') || '`Welcome ${member} to **${guild.name}**!\nLatest Member Count: **${guild.memberCount}**`'
+        const welcomeMessage = interaction.options.getString('welcome-message')
         await guildConfig.set('welcomeChannel', welcomeChannel.id)
         await guildConfig.set('welcomeMessage', welcomeMessage)
         console.log(`--New Guild Config for ${interaction.guild} :: ${guildConfig.get('guildId')}--`)
