@@ -88,7 +88,7 @@ module.exports = {
         console.log(guildConfig.get('guildId'))
         const guildDescription = guildConfig.get('guildId')
         const guildEmbed = new MessageEmbed()
-          .setDescription(`Logs channel set to: <#${guildDescription}>`)
+          .setDescription('Guild ID sent to the database')
         interaction.reply({ embeds: [guildEmbed] })
         break
 
@@ -115,6 +115,27 @@ module.exports = {
         const logsEmbed = new MessageEmbed()
           .setDescription(`Logs channel set to: <#${logsDescription}>`)
         interaction.reply({ embeds: [logsEmbed] })
+        break
+
+      case 'suggest':
+        const suggestChannel = interaction.options.getChannel('suggest-channel')
+        await guildConfig.set('suggestChannel', suggestChannel.id)
+        console.log(`--New Guild Config for ${interaction.guild} :: ${guildConfig.get('guildId')}--`)
+        console.log(`Suggest Channel: ${guildConfig.get('suggestChannel')}`)
+        const suggestDescription = guildConfig.get('suggestChannel')
+        const suggestEmbed = new MessageEmbed()
+          .setDescription(`Suggestions channel set to: <#${suggestDescription}>`)
+        interaction.reply({ embeds: [suggestEmbed] })
+        break
+      case 'support':
+        const supportChannel = interaction.options.getChannel('support-channel')
+        await guildConfig.set('supportChannel', supportChannel.id)
+        console.log(`--New Guild Config for ${interaction.guild} :: ${guildConfig.get('guildId')}--`)
+        console.log(`support Channel: ${guildConfig.get('supportChannel')}`)
+        const supportDescription = guildConfig.get('supportChannel')
+        const supportEmbed = new MessageEmbed()
+          .setDescription(`Support channel set to: <#${supportDescription}>`)
+        interaction.reply({ embeds: [supportEmbed] })
         break
     }
   }
