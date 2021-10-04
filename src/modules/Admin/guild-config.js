@@ -84,9 +84,8 @@ module.exports = {
     switch (sub) {
       case 'server-id':
         const aometryGuildId = interaction.guildId
-        guildConfig.set('guildId', aometryGuildId)
+        await guildConfig.set('guildId', aometryGuildId)
         console.log(guildConfig.get('guildId'))
-        const guildDescription = guildConfig.get('guildId')
         const guildEmbed = new MessageEmbed()
           .setDescription('Guild ID sent to the database')
         interaction.reply({ embeds: [guildEmbed] })
