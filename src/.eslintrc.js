@@ -1,3 +1,4 @@
+
 module.exports = {
   env: {
     browser: true,
@@ -11,5 +12,6 @@ module.exports = {
     ecmaVersion: 12
   },
   rules: {
+    'no-unused-vars': 'off'
   }
 }

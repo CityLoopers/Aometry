@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 const { Client, MessageEmbed, CommandInteraction, Guild, Message } = require('discord.js')
 
 module.exports = {
