@@ -27,7 +27,6 @@ module.exports = {
   async execute (interaction, client) {
     const guildConfig = new db.table(`guildConfig_${interaction.guild.id}`)
     const { options, user, guild } = interaction
-    const ownerDM = await guild.fetchOwner()
     const title = options.getString('title')
     const description = options.getString('description')
     const suggestionChannelId = guildConfig.get('suggestChannel') || interaction.reply({ embeds: [new MessageEmbed().setColor('RED').setTitle('Error').setDescription('Suggestions are not enabled in this guild. Please ask the guild administrator to enable them using `/guild-config`')] })
