@@ -7,6 +7,7 @@ module.exports = {
     options: [{
         name: 'server-id',
         description: 'The server id is pushed to the database (run this first)',
+        permissions: 'ADMINISTRATOR',
         type: 'SUB_COMMAND'
     }, {
         name: 'welcome',
@@ -32,6 +33,41 @@ module.exports = {
             description: 'Choose a channel',
             type: 'CHANNEL',
             required: true,
+        }]
+    },{
+        name: 'support',
+        description: 'Set the support channel in the database',
+        type: 'SUB_COMMAND',
+        options: [{
+            name: 'support-channel',
+            description: 'Choose a channel',
+            type: 'CHANNEL',
+            required: true,
+        }]
+    },{
+        name: 'suggest',
+        description: 'Set the suggestion channel in the database',
+        type: 'SUB_COMMAND',
+        options: [{
+            name: 'suggest-channel',
+            description: 'Choose a channel',
+            type: 'CHANNEL',
+            required: true,
+        }]
+    },{
+        name: 'roles',
+        description: 'Set the admin and mod roles in the database',
+        type: 'SUB_COMMAND',
+        options: [{
+            name: 'admin',
+            description: 'Choose a channel',
+            type: 'CHANNEL',
+            required: false,
+        },{
+            name: 'mod',
+            description: 'Choose a channel',
+            type: 'CHANNEL',
+            required: false,
         }]
     }],
     /**
