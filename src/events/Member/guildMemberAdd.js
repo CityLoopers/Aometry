@@ -1,5 +1,6 @@
 const { MessageEmbed, WebhookClient, GuildMember } = require('discord.js');
-const guildConfig = require('../../schemas/guildConfig')
+const db = require('quick.db')
+
 
 module.exports = {
     name: "guildMemberAdd",
@@ -9,55 +10,41 @@ module.exports = {
     async execute(member) {
         const { user, guild } = member
         const ownerDM = await guild.fetchOwner();
+        const guildConfig = new db.table(`guildConfig_${guild.id}`)
 
-        /* guildConfig.findOne({ 
-             guildId: interaction.guildId
-         })*/
-        guildConfig.findOne({
-            guildId: guild.id,
-        }, async(err, data) => {
-            if (err) console.log(err);
-            if (!data) {
-                ownerDM.send(`Tried to send welcome message and failed. Guild: ${guild.name}; A channel and message needs to be defined using /set-welcome`)
-            } else if (data) {
-                let welcomeChannelId = data.welcomeData.welcomeChannel || '';
-                let welcomeMessage = data.welcomeData.welcomeMessage || '';
-                let logsChannelId = data.logsChannel || '';
+        guildConfig.get('guildId')
 
-                const Welcome = new MessageEmbed()
-                    .setColor('RANDOM')
-                    .setAuthor(`🎉 Welcome! 🎉`, user.avatarURL({ dynamic: true, size: 512 }))
-                    .setThumbnail(user.avatarURL({ dynamic: true, size: 512 }))
-                    .setDescription(`
-            Welcome ${member} to **${guild.name}**!\n
-            Latest Member Count: **${guild.memberCount}**`)
-                    .setFooter(`${user.tag}`)
-                    .setTimestamp();
-                let welcomeChannelName = guild.channels.cache.get(welcomeChannelId);
-                welcomeChannelName.send({ embeds: [Welcome] });
+        let welcomeChannelId = guildConfig.get('welcomeChannel') || ownerDM.send(`Tried to send a welcome message but no channel was defined. Please use \`/guild-config\` in the guild: ${guild}`);
+        let welcomeMessage = guildConfig.get('welcomeMessage');
+        let logsChannelId = guildConfig.get('logsChannel') || ownerDM.send(`Tried to send a logs message but no channel was defined. Please use \`/guild-config\` in the guild: ${guild}`);
 
-                const LogEmbed = new MessageEmbed()
-                    .setColor('GREEN')
-                    .setThumbnail(user.displayAvatarURL)
-                    .setDescription(`${member} joined the server.`)
-                    .addField(`Account Created`, `<t:${parseInt(user.createdTimestamp / 1000)}:R>`)
-                    .setTimestamp();
+        const Welcome = new MessageEmbed()
+            .setColor('RANDOM')
+            .setAuthor(`🎉 Welcome! 🎉`, user.avatarURL({ dynamic: true, size: 512 }))
+            .setThumbnail(user.avatarURL({ dynamic: true, size: 512 }))
+            .setDescription(`Welcome ${member} to **${guild.name}**!\nLatest Member Count: **${guild.memberCount}**`)
+            .setFooter(`${user.tag}`)
+            .setTimestamp();
+        if (typeof welcomeChannelId === 'string') {
+            let welcomeChannelName = guild.channels.cache.get(welcomeChannelId);
+            welcomeChannelName.send({ embeds: [Welcome] });
+        } else {
+            welcomeChannelId
+        }
 
-                let logsChannel = guild.channels.cache.get(logsChannelId);
-                if (logsChannel) {
-                    logsChannel.send({ embeds: [LogEmbed] });
-                } else {
-                    ownerDM.send(`Tried to send welcome message and failed. Guild: ${guild.name}; A channel and message needs to be defined using /set-welcome`)
-                }
+        const LogEmbed = new MessageEmbed()
+            .setColor('GREEN')
+            .setThumbnail(user.displayAvatarURL)
+            .setDescription(`${member} joined the server.`)
+            .addField(`Account Created`, `<t:${parseInt(user.createdTimestamp / 1000)}:R>`)
+            .setTimestamp();
 
-
-            }
-        })
-
-        /*const Welcomer = new WebhookClient({
-            id: '892739765806456834',
-            token: 'urtpc4rUngjxIbrJplYN8Q0zq7hCkoV4G-heW_hfkZamtP2A4KlimimiNNoma8ePLjLg',
-        //});*/
+        if (typeof logsChannelId === 'string') {
+            let logsChannel = guild.channels.cache.get(logsChannelId);
+            logsChannel.send({ embeds: [LogEmbed] });
+        } else {
+            logsChannelId
+        }
 
 
     }
