@@ -8,7 +8,7 @@ module.exports = {
   description: 'Provides the rank of a user',
 
   async execute (interaction, client) {
-    const img = interaction.user.displayAvatarURL({ dynamic: false })
+    const img = interaction.user.displayAvatarURL({ dynamic: false, format: 'png' })
 
     const rank = await new canvacord.Rank()
       .setAvatar(img)
