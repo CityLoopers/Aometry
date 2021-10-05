@@ -1,0 +1,15 @@
+/* eslint-disable max-len */
+// eslint-disable-next-line no-unused-vars
+const { Client } = require('discord.js')
+const db = require('quick.db')
+
+module.exports = {
+  name: 'guildCreate',
+  /**
+     *
+     * @param {Client} client
+     */
+  execute (client) {
+    console.log(`connected to new guild: ${client.guild.name} | ${client.guild.id}`)
+  }
+}
