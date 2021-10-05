@@ -15,10 +15,9 @@ module.exports = {
   ],
   /**
      * @param {Client} client
-     * @param {Message} message
-     * @param {String[]} args
+     * @param {ClientInteraction} interaction
      */
-  run: async (client, interaction, args, message) => {
+  async execute (interaction, client) {
     const user = interaction.guild.members.cache.get(args[0]) || interaction.member
 
     const invites = await interaction.guild.invites.fetch()
