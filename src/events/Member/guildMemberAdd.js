@@ -2,9 +2,12 @@
 /* eslint-disable max-len */
 /* eslint-disable new-cap */
 // eslint-disable-next-line no-unused-vars
-const { MessageEmbed, GuildMember } = require('discord.js')
+const { MessageEmbed, GuildMember, MessageAttachment } = require('discord.js')
 const db = require('quick.db')
-
+const canvacord = require('canvacord')
+const fonts = [
+  { path: './fonts/lexend.ttf', face: { family: 'lexend+deca', weight: 'medium', style: 'normal' } }
+]
 module.exports = {
   name: 'guildMemberAdd',
   /**
@@ -20,16 +23,24 @@ module.exports = {
     const welcomeChannelId = guildConfig.get('welcomeChannel') || ownerDM.send(`Tried to send a welcome message but no channel was defined. Please use \`/guild-config\` in the guild: ${guild}`)
     const logsChannelId = guildConfig.get('logsChannel') || ownerDM.send(`Tried to send a logs message but no channel was defined. Please use \`/guild-config\` in the guild: ${guild}`)
 
-    const Welcome = new MessageEmbed()
-      .setColor('RANDOM')
-      .setAuthor('🎉 Welcome! 🎉', user.avatarURL({ dynamic: true, size: 512 }))
-      .setThumbnail(user.avatarURL({ dynamic: true, size: 512 }))
-      .setDescription(`Welcome ${member} to **${guild.name}**!\nLatest Member Count: **${guild.memberCount}**`)
-      .setFooter(`${user.tag}`)
-      .setTimestamp()
+    const welcomeCard = new canvacord.Welcomer()
+      .setUsername(user.username)
+      .setDiscriminator(user.discriminator)
+      .setAvatar(user.displayAvatarURL({ format: 'png' }))
+      .setColor('title', '#FEFCFC') // white
+      .setColor('username-box', '#FEFCFC') // white
+      .setColor('discriminator-box', '#FEFCFC') // white
+      .setColor('message-box', '#FEFCFC') // white
+      .setColor('border', '#000000') // black
+      .setColor('avatar', '#FEFCFC') // white
+      .setBackground('https://cdn.discordapp.com/attachments/889354876746878996/894400002863005716/backgroundWelcome.PNG') // should be png format
+      .setMemberCount(guild.memberCount)
+      // .registerFonts(fonts)
+    const attachment = new MessageAttachment(await welcomeCard.build({ font: 'lexend' }), 'welcome.png')
+
     if (typeof welcomeChannelId === 'string') {
       const welcomeChannelName = guild.channels.cache.get(welcomeChannelId)
-      welcomeChannelName.send({ embeds: [Welcome] })
+      welcomeChannelName.send({ files: [attachment] })
     } else {
       welcomeChannelId
     }
