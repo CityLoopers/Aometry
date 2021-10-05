@@ -12,13 +12,13 @@ An awesome multipurpose discord bot build using [discord.js v13](https://discord
 ## Requirements
 
 - Node.js 16.6.0 or newer
-- npm installed
 
 ## 🚀 Getting Started
 - Download Bot
 - Rename config-sample.json to config.json and fill the values
 - Run `npm i` to install all dependencies
 - After installation finishes use `node .` to start the bot
+- Once the bot is up and running, run `/guild-config` to configure aspects of the bot
 
 ## Features
 
