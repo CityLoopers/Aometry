@@ -17,6 +17,7 @@ An awesome multipurpose discord bot build using [discord.js v13](https://discord
 ## 🚀 Getting Started
 - Download Bot
 - Rename config-sample.json to config.json and fill the values
+- Run `npm i` to install all dependencies
 - After installation finishes use `node .` to start the bot
 
 ## Features
