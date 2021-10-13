@@ -40,6 +40,7 @@ module.exports = {
 
     const LogEmbed = new MessageEmbed()
       .setColor('RED')
+      .setTitle('Member Left')
       .setDescription(`${member} left :(`)
       .setThumbnail(user.displayAvatarURL({ dynamic: true }))
       .setTimestamp()
