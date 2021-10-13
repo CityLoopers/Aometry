@@ -26,6 +26,7 @@ module.exports = {
     const welcomeCard = new canvacord.Welcomer()
       .setUsername(user.username)
       .setDiscriminator(user.discriminator)
+      .setGuildName(guild.name)
       .setAvatar(user.displayAvatarURL({ format: 'png' }))
       .setColor('title', '#FEFCFC') // white
       .setColor('username-box', '#FEFCFC') // white
@@ -47,7 +48,8 @@ module.exports = {
 
     const LogEmbed = new MessageEmbed()
       .setColor('GREEN')
-      .setThumbnail(user.displayAvatarURL)
+      .setTitle('New Member!')
+      .setThumbnail(user.displayAvatarURL({ dynamic: true }))
       .setDescription(`${member} joined the server.`)
       .addField('Account Created', `<t:${parseInt(user.createdTimestamp / 1000)}:R>`)
       .setTimestamp()
