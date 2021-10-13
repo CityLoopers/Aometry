@@ -95,7 +95,6 @@ module.exports = {
         const welcomeChannel = interaction.options.getChannel('welcome-channel')
         const welcomeMessage = interaction.options.getString('welcome-message')
         await guildConfig.set('welcomeChannel', welcomeChannel.id)
-        await guildConfig.set('welcomeMessage', welcomeMessage)
         console.log(`--New Guild Config for ${interaction.guild} :: ${guildConfig.get('guildId')}--`)
         console.log(`WelcomeChannel ID: ${guildConfig.get('welcomeChannel')}`)
         console.log(`Welcome Message: ${guildConfig.get('welcomeMessage')}`)
