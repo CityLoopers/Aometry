@@ -71,7 +71,7 @@ module.exports = {
           break
 
         default:
-          console.log(interaction)
+          console.log('Button Pressed')
           break
       }
     }
