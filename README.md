@@ -12,6 +12,7 @@ An awesome multipurpose discord bot build using [discord.js v13](https://discord
 ## Requirements
 
 - Node.js 16.6.0 or newer
+- npm installed
 
 ## 🚀 Getting Started
 - Download Bot
