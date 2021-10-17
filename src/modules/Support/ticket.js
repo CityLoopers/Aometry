@@ -64,6 +64,7 @@ module.exports = {
         reason: 'User created a ticket'
       })
       const ticketReason = interaction.options.getString('reason')
+      guildConfig.push(`ticketData_${User}`, { ticketId: result }, { ticketReason: ticketReason })
 
       const newTicket = new MessageEmbed()
         .setColor('YELLOW')
