@@ -4,6 +4,8 @@
 
 ![GitHub top language](https://img.shields.io/github/languages/top/Enroute-Transport/Aometry?color=0072CE&style=for-the-badge)
 ![Requires](https://img.shields.io/badge/requires-discordJS-5865F2?style=for-the-badge)
+<a href="https://enrt.me/discord"><img src="https://img.shields.io/discord/636354429049896991?color=5865F2&label=Enroute&style=for-the-badge" alt="Discord Server"></a>
+<a href="https://discord.gg/zturVQrhTG"><img src="https://img.shields.io/discord/882220041477709856?color=5865F2&label=Support Server&style=for-the-badge" alt="Discord Server"></a>
 
 An awesome multipurpose discord bot build using [discord.js v13](https://discord.js.org) with support for slash commands and context menus
 
@@ -15,7 +17,9 @@ An awesome multipurpose discord bot build using [discord.js v13](https://discord
 ## 🚀 Getting Started
 - Download Bot
 - Rename config-sample.json to config.json and fill the values
+- Run `npm i` to install all dependencies
 - After installation finishes use `node .` to start the bot
+- Once the bot is up and running, run `/guild-config` to configure aspects of the bot
 
 ## Features
 
