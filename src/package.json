@@ -21,6 +21,7 @@
         "discord-gamecord": "^2.0.0",
         "discord-xp": "^1.1.16",
         "discord.js": "^13.1.0",
+        "djs-pagination-buttons": "^0.2.4-dev",
         "ffmpeg": "^0.0.4",
         "glob": "^7.2.0",
         "moment": "^2.29.1",
