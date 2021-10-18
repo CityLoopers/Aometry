@@ -70,6 +70,16 @@ module.exports = {
           interaction.channel.setArchived()
           break
 
+        case 'generalInq':
+          interaction.reply('Woah there buster, this button is not ready yet, use `/ticket` to open a ticket!')
+          break
+        case 'bugReport':
+          interaction.reply('Woah there buster, this button is not ready yet, use `/ticket` to open a ticket!')
+          break
+        case 'featureRequest':
+          interaction.reply('Woah there buster, this button is not ready yet, use `/ticket` to open a ticket!')
+          break
+
         default:
           console.log('Button Pressed')
           break
