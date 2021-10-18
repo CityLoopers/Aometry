@@ -3,17 +3,9 @@ const { CommandInteraction, MessageEmbed } = require('discord.js')
 module.exports = {
   name: 'help',
   description: 'Displays the help message',
-  options: [{
-    name: 'module',
-    description: 'Choose a module',
-    type: 'STRING',
-    required: false
-  }],
   module: 'Core',
 
   async execute (interaction, client) {
-    const module = interaction.options.getString('module')
-    const cmdArray = []
     const moduleArray = []
 
     client.commands.forEach(command =>
