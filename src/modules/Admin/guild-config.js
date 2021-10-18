@@ -72,6 +72,7 @@ module.exports = {
       required: false
     }]
   }],
+  module: 'Admin',
   /**
      *
      * @param {CommandInteraction} interaction

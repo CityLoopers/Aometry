@@ -48,6 +48,7 @@ module.exports = {
     type: 'SUB_COMMAND'
   }
   ],
+  module: 'Music',
   /**
      * @param {Client} client
      * @param {CommandInteraction} interaction

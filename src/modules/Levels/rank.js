@@ -12,6 +12,7 @@ module.exports = {
     description: 'Choose the user to see the rank of',
     required: false
   }],
+  module: 'Levels',
   /**
 * @param {CommandInteraction} interaction
 * @param {Client} client

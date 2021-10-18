@@ -21,6 +21,7 @@ module.exports = {
     type: 'CHANNEL',
     required: false
   }],
+  module: 'Support',
   /**
   * @param {CommandInteraction} interaction
   * @param {Client} client
@@ -34,7 +35,7 @@ module.exports = {
     if (typeof supportChannelId === 'string') {
       const supportChannel = interaction.guild.channels.cache.get(supportChannelId)
       const ticketPanel = new MessageEmbed()
-      .setDescription('This is a ticket panel!')
+        .setDescription('This is a ticket panel!')
       const row = new MessageActionRow()
         .addComponents(new MessageButton()
           .setCustomId('generalInq')

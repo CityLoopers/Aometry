@@ -25,6 +25,7 @@ module.exports = {
       { name: 'Western Australia', value: '4' }
     ]
   }],
+  module: 'Covid',
   /**
      * @param {CommandInteraction} interaction
      * @param {Client} client
@@ -33,6 +34,7 @@ module.exports = {
     const stateName = interaction.options.getString('state')
 
     const covidData = await utils.request('https://covidlive.com.au/covid-live.json')
+
     const obj = await JSON.parse(covidData)
     const newTest = obj[stateName].TEST_CNT - obj[stateName].PREV_TEST_CNT
     const newDeaths = obj[stateName].DEATH_CNT - obj[stateName].PREV_DEATH_CNT
