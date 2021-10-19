@@ -27,6 +27,11 @@ module.exports = {
       new MessageButton()
         .setURL('https://discord.gg/zturVQrhTG')
         .setLabel('Support Server')
+        .setStyle('LINK'),
+
+      new MessageButton()
+        .setURL('https://discord.gg/Enroute')
+        .setLabel('Enroute (Parent Server)')
         .setStyle('LINK')
 
     )
