@@ -44,51 +44,28 @@ module.exports = async (client) => {
   // PERMISSIONS CHECK//
 
   client.on('ready', async () => {
-    const guildSupport = await client.guilds.cache.get('882220041477709856')
-    const guildTest = await client.guilds.cache.get('893392409088643124')
-    const guildEnroute = await client.guilds.cache.get('636354429049896991')
+    client.guilds.cache.forEach((guild) => {
+      guild.commands.set(commandsArray).then(async (command) => {
+        const rolesConstructor = (commandName) => {
+          const cmdPerms = commandsArray.find((c) => c.name === commandName).permission
+          if (!cmdPerms) return null
 
-    guildSupport.commands.set(commandsArray).then(async (command) => {
-      const rolesConstructor = (commandName) => {
-        const cmdPerms = commandsArray.find((c) => c.name === commandName).permission
-        if (!cmdPerms) return null
+          return guild.roles.cache.filter((r) => r.permissions.has(cmdPerms))
+        }
 
-        return guildSupport.roles.cache.filter((r) => r.permissions.has(cmdPerms))
-      }
+        const fullPermissions = command.reduce((accumulator, r) => {
+          const roles = rolesConstructor(r.name)
+          if (!roles) return accumulator
 
-      const fullPermissions = command.reduce((accumulator, r) => {
-        const roles = rolesConstructor(r.name)
-        if (!roles) return accumulator
+          const permissions = roles.reduce((a, r) => {
+            return [...a, { id: r.id, type: 'ROLE', permission: true }]
+          }, [])
 
-        const permissions = roles.reduce((a, r) => {
-          return [...a, { id: r.id, type: 'ROLE', permission: true }]
+          return [...accumulator, { id: r.id, permissions }]
         }, [])
 
-        return [...accumulator, { id: r.id, permissions }]
-      }, [])
-
-      await guildSupport.commands.permissions.set({ fullPermissions })
-    })
-    guildTest.commands.set(commandsArray).then(async (command) => {
-      const rolesConstructor = (commandName) => {
-        const cmdPerms = commandsArray.find((c) => c.name === commandName).permission
-        if (!cmdPerms) return null
-
-        return guildTest.roles.cache.filter((r) => r.permissions.has(cmdPerms))
-      }
-
-      const fullPermissions = command.reduce((accumulator, r) => {
-        const roles = rolesConstructor(r.name)
-        if (!roles) return accumulator
-
-        const permissions = roles.reduce((a, r) => {
-          return [...a, { id: r.id, type: 'ROLE', permission: true }]
-        }, [])
-
-        return [...accumulator, { id: r.id, permissions }]
-      }, [])
-
-      await guildTest.commands.permissions.set({ fullPermissions })
+        await guild.commands.permissions.set({ fullPermissions })
+      })
     })
   })
 }
