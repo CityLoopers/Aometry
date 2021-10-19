@@ -4,6 +4,7 @@
     "description": "",
     "main": "index.js",
     "scripts": {
+        "devStart": "nodemon .",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "keywords": [],
@@ -28,6 +29,7 @@
         "moment-timezone": "^0.5.33",
         "mongoose": "^6.0.8",
         "node-fetch": "^2.6.5",
+        "nodemon": "^2.0.13",
         "npmlog": "^5.0.1",
         "popcat-wrapper": "^1.4.9",
         "puppeteer": "^10.4.0",
