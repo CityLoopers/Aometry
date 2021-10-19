@@ -75,7 +75,7 @@ module.exports = {
     const pidURL = pidData.url.format(stationName, platform, pidType, extraPIDOption)
     const fileName = `${stationCode}-${platform}-${pidType}`.toLowerCase().replace(/[^\w\d ]/g, '-').replace(/  */g, '-').replace(/--+/g, '-').replace(/-$/, '').replace(/^-/, '') + '.png'
 
-    await interaction.reply('Working on it...')
+    await interaction.deferReply()
 
     try {
       const browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox'] })
@@ -101,7 +101,7 @@ module.exports = {
         .setFooter(`Requested By ${interaction.user.tag}`, interaction.user.displayAvatarURL({ dynamic: true }))
         .setTimestamp()
 
-      await interaction.followUp({ embeds: [response], files: [new MessageAttachment(fileName)] })
+      await interaction.editReply({ embeds: [response], files: [new MessageAttachment(fileName)] })
       setTimeout(() => {
         fs.unlink(fileName, () => {})
       }, 5000)

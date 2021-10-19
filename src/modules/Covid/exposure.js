@@ -31,7 +31,7 @@ module.exports = {
   async execute (interaction, client) {
     const state = interaction.options.getString('state')
     const url = `https://covid19nearme.com.au/state/${state}`
-    await interaction.reply('Working on it...')
+    await interaction.deferReply()
     const fileName = `${state}-exposure-sites`.toLowerCase() + '.png'
     try {
       const browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox'] })
@@ -56,7 +56,7 @@ module.exports = {
         .setFooter(`Requested By ${interaction.user.tag}`, interaction.user.displayAvatarURL({ dynamic: true }))
         .setTimestamp()
 
-      await interaction.followUp({ embeds: [response], files: [new MessageAttachment(fileName)] })
+      await interaction.editReply({ embeds: [response], files: [new MessageAttachment(fileName)] })
       setTimeout(() => {
         fs.unlink(fileName, () => {})
       }, 5000)
