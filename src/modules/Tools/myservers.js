@@ -18,11 +18,11 @@ module.exports = {
     const response = new MessageEmbed()
       .setTitle('Aometry Connected Guilds')
       .setDescription('Aometry is connected to the following guilds')
-      .setThumbnail(client.displayAvatarURL({ dynamic: true }))
+      .setThumbnail(client.user.displayAvatarURL({ dynamic: true }))
       .setFields(guildsArray)
       .setColor('YELLOW')
       .setTimestamp()
-      .setFooter(`${client.name}`)
+      .setFooter(`${client.user.username}`)
 
     interaction.reply({ embeds: [response] })
   }
