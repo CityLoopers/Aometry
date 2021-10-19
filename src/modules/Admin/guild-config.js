@@ -6,6 +6,7 @@ const db = require('quick.db')
 module.exports = {
   name: 'guild-config',
   description: 'Tests pushing values to the database',
+  permission: 'MANAGE_GUILD',
   options: [{
     name: 'server-id',
     description: 'The server id is pushed to the database (run this first)',
