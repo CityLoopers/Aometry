@@ -12,7 +12,7 @@ module.exports = {
   async execute (interaction, client) {
     const Response = new MessageEmbed()
       .setColor('YELLOW')
-      .setAuthor('About Aometry', client.user.displayAvatarURL({ dynamic: true }))
+      .setAuthor(`About ${client.user.username}`, client.user.displayAvatarURL({ dynamic: true }))
       .setThumbnail(client.user.displayAvatarURL({ dynamic: true }))
       .setFields([{
         name: 'Main Contributors',
@@ -27,7 +27,7 @@ module.exports = {
         value: '[GitHub](https://github.com/Enroute-Transport/Aometry)\n[Website](https://gunzel.xyz)\n[Twitter](https://twitter.com/enrtme)\n[Enroute](https://discord.gg/Enroute)'
       }
       ])
-      .setFooter('Aometry v21.10.01')
+      .setFooter(`${client.user.username}`)
 
     const row = new MessageActionRow().addComponents(
       new MessageButton()
