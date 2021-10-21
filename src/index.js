@@ -7,11 +7,13 @@ const client = new Client({
 const { token } = require('./config.json')
 
 client.commands = new Collection()
+client.buttons = new Collection()
+require('./handlers/buttons')(client)
 require('./handlers/events')(client)
 require('./handlers/commands')(client)
 
 const handle = new Errorhandler(client, {
-  webhook: { id: '894549337894424616', token: 'KoOZsBuLtzWUdlKh3A3jFNXv0yxxTFhFikEImHkjCAxRLSZsQsuJ_fNtvdkEDB_N7qlr' }
+  webhook: { id: '894549337894424616', token: 'h_vK5JYFuEE7nPucgAz0BlUTlGBx8gMi9_uZEd7ZghiF7MPpZw6jGyPc6CW7ymUGtYqG' }
 })
 process.on('unhandledRejection', error => {
   handle.createrr(client, undefined, undefined, error)
