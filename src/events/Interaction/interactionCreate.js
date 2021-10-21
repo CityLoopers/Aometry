@@ -34,56 +34,19 @@ module.exports = {
     }
     // Button Handler
     if (interaction.isButton()) {
-      switch (interaction.customId) {
-        case 'closeTicket':
-          const embed = new MessageEmbed()
-            .setTitle('Are you sure?')
-            .setDescription('Closing a ticket is permanent, are you sure your query is resolved?')
-
-          const row = new MessageActionRow().addComponents(
-            new MessageButton()
-              .setCustomId('imSure')
-              .setLabel('I\'m Sure!')
-              .setStyle('SUCCESS')
-          )
-          interaction.channel.send({ embeds: [embed], components: [row] })
-          break
-
-        case 'imSure':
-          const logsChannelId = guildConfig.get('logsChannel') || ownerDM.send(`Tried to send a logs message but no channel was defined. Please use \`/guild-config\` in the guild: ${guild}`)
-          const ticketClosed = new MessageEmbed()
-            .setColor('GREEN')
-            .setAuthor(
-              'Ticket Closed',
-                `${interaction.user.displayAvatarURL({ dynamic: true })}`
-            )
-            .setDescription(`Ticket Created by ${interaction.user}`)
-            .addField('Ticket Channel', `${interaction.channel}`)
-            .setThumbnail(`${interaction.user.displayAvatarURL({ dynamic: true })}`)
-
-          if (typeof logsChannelId === 'string') {
-            const logsChannel = interaction.guild.channels.cache.get(logsChannelId)
-            logsChannel.send({ embeds: [ticketClosed] })
-          } else {
-            logsChannelId
-          }
-          interaction.channel.setArchived()
-          break
-
-        case 'generalInq':
-          interaction.reply('Woah there buster, this button is not ready yet, use `/ticket` to open a ticket!')
-          break
-        case 'bugReport':
-          interaction.reply('Woah there buster, this button is not ready yet, use `/ticket` to open a ticket!')
-          break
-        case 'featureRequest':
-          interaction.reply('Woah there buster, this button is not ready yet, use `/ticket` to open a ticket!')
-          break
-
-        default:
-          console.log('Button Pressed')
-          break
+      const button = client.buttons.get(interaction.customId)
+      if (!button) {
+        const newLocal = '⛔ An error occured while executing this button.'
+        return interaction.reply({
+          embeds: [
+            new MessageEmbed()
+              .setColor('RED')
+              .setDescription(newLocal)
+          ]
+        }) && client.buttons.delete(interaction.customId)
       }
+
+      button.execute(interaction, client)
     }
   }
 }
