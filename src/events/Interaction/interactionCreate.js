@@ -5,7 +5,9 @@
 /* eslint-disable no-unused-vars */
 const { Client, CommandInteraction, MessageEmbed, MessageActionRow, MessageButton } = require('discord.js')
 const generateTranscript = require('reconlx')
+const config = require('../../config.json')
 const db = require('quick.db')
+const owners = ('../../config.json')
 
 module.exports = {
   /**
@@ -28,6 +30,12 @@ module.exports = {
               .setDescription(newLocal)
           ]
         }) && client.commands.delete(interaction.commandName)
+      }
+
+      if (command.ownerOnly === true) {
+        if (!owners.includes(interaction.member.id)) return interaction.reply({ content: "You can't use this command!", ephemeral: true })
+        const naughtyLogChannel = client.channels.cache.get('894549317312995338')
+        naughtyLogChannel.send(`${interaction.user} (${interaction.user.id}) tried to run (${interaction.commandName}). They are NOT an OWNER. one moment while I warm up my D34DLY N3UR0T0X1N emitters...`)
       }
 
       command.execute(interaction, client)
