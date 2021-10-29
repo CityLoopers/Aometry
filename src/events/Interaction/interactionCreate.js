@@ -4,10 +4,8 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 const { Client, CommandInteraction, MessageEmbed, MessageActionRow, MessageButton } = require('discord.js')
-const generateTranscript = require('reconlx')
-const config = require('../../config.json')
 const db = require('quick.db')
-const owners = ('../../config.json')
+const owners = ('../../Structures/config.json')
 
 module.exports = {
   /**
@@ -19,7 +17,7 @@ module.exports = {
     const guildConfig = new db.table(`guildConfig_${interaction.guild.id}`)
     const ownerDM = await interaction.guild.fetchOwner()
     // Slash Command Handler
-    if (interaction.isCommand()) {
+    if (interaction.isCommand() || interaction.isContextMenu()) {
       const command = client.commands.get(interaction.commandName)
       if (!command) {
         const newLocal = '⛔ An error occured while running this command.'

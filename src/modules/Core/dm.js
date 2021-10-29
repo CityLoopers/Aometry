@@ -3,6 +3,7 @@ const { CommandInteraction, MessageEmbed } = require('discord.js')
 module.exports = {
   name: 'dm',
   description: 'Sends a DM to the specified user',
+  module: 'Core',
   ownerOnly: true,
   options: [{
     name: 'user',

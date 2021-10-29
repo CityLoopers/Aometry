@@ -2,7 +2,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable max-len */
 const { CommandInteraction, MessageEmbed } = require('discord.js')
-const utils = require('../../utils')
+const utils = require('../../Structures/utils')
 const cheerio = require('cheerio')
 
 module.exports = {

@@ -1,36 +1,29 @@
 /* eslint-disable no-unused-vars */
-
-// This command isn't currently working, so we'll fix it later xxx :)
-
-const { Client, MessageEmbed, CommandInteraction } = require('discord.js')
+const { Client, MessageEmbed, ContextMenuInteraction } = require('discord.js')
 const moment = require('moment')
 
 module.exports = {
   name: 'userinfo',
-  description: 'Displays User Information',
-  options: [{
-    name: 'user',
-    description: 'Select a user.',
-    type: 'USER',
-    required: false
-  }],
+  type: 'USER',
+  context: true,
   module: 'General',
   /**
      *
      * @param {Client} client
-     * @param {CommandInteraction} interaction
+     * @param {ContextMenuInteraction} interaction
      */
-  execute (interaction, client) {
-    const Target = interaction.options.getUser('user') || interaction.user
+  async execute (interaction, client) {
+    const target = await interaction.guild.members.fetch(interaction.targetId)
 
-    const Response = new MessageEmbed()
-      .setAuthor(`${Target.user}`, Target.displayAvatarURL({ dynamic: true }))
-      .setThumbnail(Target.displayAvatarURL({ dynamic: true }))
+    const response = new MessageEmbed()
       .setColor('YELLOW')
-      .addField('UserID', `${Target.id}`)
-    // .addField("Roles", `${Target.roles.cache.map(r => r).join(' ').replace("@everyone", " ")}`)
-      .addField('Member Since', `${moment(Target.joinedAt).format('Do MMMM YYYY, h:mm:ss a')}\n**-** ${moment(Target.joinedAt).startOf('day').fromNow()}`)
-      .addField('Discord User Since', `${moment(Target.createdAt).format('Do MMMM YYYY, h:mm:ss a')}\n**-** ${moment(Target.createdAt).startOf('day').fromNow()}`)
-    interaction.reply({ embeds: [Response] })
+      .setAuthor(target.user.tag, target.user.avatarURL({ dynamic: true, size: 512 }))
+      .setThumbnail(target.user.avatarURL({ dynamic: true, size: 512 }))
+      .addField('ID', `${target.user.id}`)
+      .addField('Roles', `${target.roles.cache.map(r => r).join(' ').replace('@everyone', '') || 'None'}`)
+      .addField('Server Member Since', `<t:${parseInt(target.joinedTimestamp / 1000)}:R>`, true)
+      .addField('Discord User Since', `<t:${parseInt(target.user.createdTimestamp / 1000)}:R>`, true)
+
+    interaction.reply({ embeds: [response], ephemeral: true })
   }
 }

@@ -4,6 +4,7 @@ const db = require('quick.db')
 module.exports = {
   name: 'ban',
   description: 'Bans the user',
+  module: 'Moderation',
   options: [{
     name: 'user',
     description: 'The user to ban',

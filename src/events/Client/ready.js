@@ -2,7 +2,7 @@
 // eslint-disable-next-line no-unused-vars
 const { Client } = require('discord.js')
 const mongoose = require('mongoose')
-const { DBURL } = require('../../config.json')
+const { DBURL } = require('../../Structures/config.json')
 
 module.exports = {
   name: 'ready',

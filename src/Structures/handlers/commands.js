@@ -1,30 +1,31 @@
 /* eslint-disable max-len */
 /* eslint-disable no-unused-vars */
 const { Perms } = require('../validation/Permissions')
-const { Client, ClientUser } = require('discord.js')
-const { promisify } = require('util')
-const { glob } = require('glob')
-const pG = promisify(glob)
-const Ascii = require('ascii-table')
+const { Client } = require('discord.js')
 
 /**
  * @param {Client} client
  */
 
-module.exports = async (client) => {
-  const Table = new Ascii('Command Loaded')
+module.exports = async (client, pG, Ascii) => {
+  const moduleTable = new Ascii('Modules Loaded')
+  const Table = new Ascii('Commands Loaded')
+  Table.addRow('Command', 'Module', 'Status')
+  Table.addRow('---', '---', '---')
 
   const commandsArray = [];
-
   (await pG(`${process.cwd()}/modules/*/*.js`)).map(async (file) => {
     const command = require(file)
 
     if (!command.name) {
       return Table.addRow(file.split('/')[9], '🔶 FAILED', 'Missing a name.')
     }
+    if (!command.module) {
+      return Table.addRow(command.name, '🔶 FAILED', 'Missing a module.')
+    }
 
-    if (!command.description) {
-      return Table.addRow(command.name, '🔶 FAILED', 'Missing a description.')
+    if (!command.context && !command.description) {
+      return Table.addRow(command.name, '🔶 FAILED', 'missing a description.')
     }
 
     if (command.permission) {
@@ -37,7 +38,7 @@ module.exports = async (client) => {
     client.commands.set(command.name, command)
     commandsArray.push(command)
 
-    await Table.addRow(command.name, '✅ SUCCESSFUL')
+    await Table.addRow(command.name, command.module, '✅ SUCCESSFUL')
   })
   console.log(Table.toString())
 

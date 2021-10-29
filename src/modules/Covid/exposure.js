@@ -1,5 +1,5 @@
 const { CommandInteraction, MessageEmbed, MessageAttachment } = require('discord.js')
-const utils = require('../../utils')
+const utils = require('../../structures/utils')
 const puppeteer = require('puppeteer')
 const fs = require('fs')
 

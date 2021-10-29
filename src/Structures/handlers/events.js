@@ -1,11 +1,7 @@
 /* eslint-disable max-len */
 const { Events } = require('../validation/EventNames')
-const { promisify } = require('util')
-const { glob } = require('glob')
-const pG = promisify(glob)
-const Ascii = require('ascii-table')
 
-module.exports = async (client) => {
+module.exports = async (client, pG, Ascii) => {
   const Table = new Ascii('Events Loaded');
 
   (await pG(`${process.cwd()}/events/*/*.js`)).map(async (file) => {
@@ -13,7 +9,7 @@ module.exports = async (client) => {
 
     if (!Events.includes(event.name) || !event.name) {
       const L = file.split('/')
-      await Table.addRow(`${event.name || 'MISSING'}`, `⛔ Event name is either invalid or missing: ${L[6] + '/' + L[7]}`)
+      await Table.addRow(`${event.name || 'MISSING'}`, `⛔ Event name is either invalid or missing: ${L[8] + '/' + L[9]}`)
       return
     }
 

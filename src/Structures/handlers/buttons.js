@@ -1,17 +1,13 @@
 /* eslint-disable max-len */
 /* eslint-disable no-unused-vars */
 const { Perms } = require('../validation/Permissions')
-const { Client, ClientUser } = require('discord.js')
-const { promisify } = require('util')
-const { glob } = require('glob')
-const pG = promisify(glob)
-const Ascii = require('ascii-table')
+const { Client } = require('discord.js')
 
 /**
  * @param {Client} client
  */
 
-module.exports = async (client) => {
+module.exports = async (client, pG, Ascii) => {
   const Table = new Ascii('Button Loaded')
 
   const buttonsArray = [];

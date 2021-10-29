@@ -5,9 +5,9 @@ const {
   MessageEmbed,
   MessageAttachment
 } = require('discord.js')
-const utils = require('../../utils')
-const { pidTypes } = require('../../config/pid')
-const stations = require('../../config/stations')
+const utils = require('../../structures/utils')
+const { pidTypes } = require('../../structures/config/pid')
+const stations = require('../../structures/config/stations')
 const puppeteer = require('puppeteer')
 const fs = require('fs')
 

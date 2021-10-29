@@ -2,9 +2,9 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable max-len */
 const { MessageEmbed, CommandInteraction, Client } = require('discord.js')
-const mykiCard = require('../../schemas/myki')
-const { cardTypes } = require('../../config/myki.json')
-const utils = require('../../utils')
+const mykiCard = require('../../structures/schemas/myki')
+const { cardTypes } = require('../../structures/config/myki.json')
+const utils = require('../../structures/utils')
 const cheerio = require('cheerio')
 const moment = require('moment')
 

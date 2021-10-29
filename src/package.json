@@ -2,7 +2,7 @@
     "name": "aometry",
     "version": "21.10.0",
     "description": "",
-    "main": "index.js",
+    "main": "./Structures/index.js",
     "scripts": {
         "devStart": "nodemon .",
         "test": "echo \"Error: no test specified\" && exit 1"
@@ -24,6 +24,7 @@
         "discord.js": "^13.1.0",
         "djs-pagination-buttons": "^0.2.4-dev",
         "ffmpeg": "^0.0.4",
+        "github-download": "^0.5.0",
         "glob": "^7.2.0",
         "moment": "^2.29.1",
         "moment-timezone": "^0.5.33",

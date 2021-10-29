@@ -4,6 +4,7 @@ const db = require('quick.db')
 module.exports = {
   name: 'setdefcon',
   description: 'Sets the defcon information for the guild',
+  module: 'DEFCON',
   options: [{
     name: 'channel',
     description: 'Channel the DEFCON level of the guild',

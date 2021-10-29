@@ -3,6 +3,7 @@ const { CommandInteraction, MessageEmbed } = require('discord.js')
 module.exports = {
   name: 'reboot',
   description: 'Reboot the bot',
+  module: 'Tools',
   ownerOnly: true,
   async execute (interaction, client) {
     interaction.reply({
