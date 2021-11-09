@@ -1,4 +1,4 @@
-const { Events } = require("../validation/EventNames");
+const { Constants } = require("discord.js");
 const { promisify } = require("util");
 const { glob } = require("glob");
 const PG = promisify(glob);
@@ -6,6 +6,7 @@ const Ascii = require('ascii-table');
 
 module.exports = async(client) => {
         const Table = new Ascii("Events Loaded");
+        const Events = Object.values(Constants.Events)
 
         (await PG(`${process.cwd()}/events/*/*.js`)).map(async(file) => {
                     const event = require(file);

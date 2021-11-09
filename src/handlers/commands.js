@@ -1,5 +1,4 @@
-const { Perms } = require('../validation/Permissions');
-const { Client, ClientUser } = require('discord.js');
+const { Client, ClientUser, Permissions } = require('discord.js');
 const { promisify } = require("util");
 const { glob } = require('glob');
 const PG = promisify(glob);
@@ -11,6 +10,7 @@ const Ascii = require('ascii-table');
 
 module.exports = async(client) => {
     const Table = new Ascii("Command Loaded");
+    const Perms = Object.keys(Permissions.FLAGS);
 
     CommandsArray = [];
 
