@@ -1,12 +1,12 @@
-const { CommandInteraction, MessageEmbed } = require('discord.js')
-
+const { MessageEmbed } = require('discord.js')
+const { owners } = require('../../../Structures/config/config.json')
 module.exports = {
   name: 'reboot',
   description: 'Reboot the bot',
   module: 'Tools',
-  ownerOnly: true,
-  async execute (interaction, client) {
-    interaction.reply({
+  async execute (message, args, commandName, client) {
+    if (message.author.id === owners) {
+    message.reply({
       content: 'Restarting . . .'
     }).then(() => {
       process.on('exit', () => {
@@ -18,5 +18,8 @@ module.exports = {
       })
       process.exit()
     })
+    } else {
+      message.reply({ content: 'You cannot run this command!'})
+    }
   }
 }

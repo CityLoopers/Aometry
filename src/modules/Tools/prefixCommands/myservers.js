@@ -1,16 +1,12 @@
 /* eslint-disable no-unused-vars */
-const { CommandInteraction, MessageEmbed, Client } = require('discord.js')
+const { MessageEmbed, Client } = require('discord.js')
 
 module.exports = {
-  /**
-    * @param {CommandInteraction} interaction
-    * @param {Client} client
-    */
   name: 'myservers',
   description: 'Displays all servers that Aometry is connected to',
   module: 'Tools',
 
-  async execute (interaction, client) {
+  async execute (message, args, commandName, client) {
     const guildsArray = []
     client.guilds.cache.forEach((guild) => {
       guildsArray.push({ name: `${guild.name}`, value: `${guild.id}`, inline: true })
@@ -24,6 +20,6 @@ module.exports = {
       .setTimestamp()
       .setFooter(`${client.user.username}`)
 
-    interaction.reply({ embeds: [response] })
+    message.reply({ embeds: [response] })
   }
 }

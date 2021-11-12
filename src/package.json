@@ -2,16 +2,15 @@
     "name": "aometry",
     "version": "21.10.0",
     "description": "",
-    "main": "./Structures/index.js",
+    "main": "Structures/index.js",
     "scripts": {
-        "devStart": "nodemon .",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "keywords": [],
     "author": "finneh",
     "license": "ISC",
     "dependencies": {
-        "@discordjs/voice": "^0.6.0",
+        "@discordjs/voice": "^0.7.2",
         "anime-actions": "^1.0.6",
         "ascii-art": "^2.8.5",
         "ascii-art-font": "^1.0.2",
@@ -20,6 +19,8 @@
         "canvacord": "^5.2.3",
         "canvas": "^2.8.0",
         "cheerio": "^1.0.0-rc.10",
+        "discord-error-handler": "^1.3.3",
+        "discord.js": "^13.3.1",
         "discord-canvas": "^1.4.1",
         "discord-error-handler": "^1.3.2",
         "discord-gamecord": "^2.0.0",
@@ -31,23 +32,14 @@
         "glob": "^7.2.0",
         "moment": "^2.29.1",
         "moment-timezone": "^0.5.33",
-        "mongoose": "^6.0.8",
-        "node-fetch": "^2.6.5",
-        "nodemon": "^2.0.13",
+        "mongoose": "^6.0.12",
+        "node-fetch": "^3.1.0",
         "npmlog": "^5.0.1",
+        "puppeteer": "^11.0.0",
         "popcat-wrapper": "^1.4.9",
-        "puppeteer": "^10.4.0",
         "quick.db": "^7.1.3",
-        "reconlx": "^2.4.3",
+        "reconlx": "^2.5.1",
         "yt-search": "^2.10.2",
         "ytdl-core": "^4.9.1"
-    },
-    "devDependencies": {
-        "eslint": "^7.32.0",
-        "eslint-config-google": "^0.14.0",
-        "eslint-config-standard": "^16.0.3",
-        "eslint-plugin-import": "^2.24.2",
-        "eslint-plugin-node": "^11.1.0",
-        "eslint-plugin-promise": "^5.1.0"
     }
 }

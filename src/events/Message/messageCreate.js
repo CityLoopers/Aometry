@@ -16,7 +16,14 @@ module.exports = {
     const command = client.prefixCommands.get(commandName) ||
       client.prefixCommands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName))
 
-    if (!command) return
+    if (!command) {
+     const unknownCommand = new MessageEmbed()
+      .setTitle('Unknown Command')
+      .setDescription('The command you tried to use is invalid, try using `a!help`!')
+
+
+      message.reply({embeds: [test]})
+    }
 
     if (command.permissions) {
       const authorPerms = message.channel.permissionsFor(message.author)

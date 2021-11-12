@@ -15,10 +15,10 @@ module.exports = {
 * @param {CommandInteraction} interaction
 * @param {Client} client
 */
-  async execute (interaction, client) {
-    const guildId = interaction.options.getString('guild-id')
+  async execute (message, args, commandName, client) {
+    const guildId = args[0]
     const guild = client.guilds.cache.get(guildId)
     guild.leave()
-    interaction.reply({ content: `Left the guild, ${guild.name} ${guild.id}` })
+    message.reply({ content: `Left the guild, ${guild.name} ${guild.id}` })
   }
 }
