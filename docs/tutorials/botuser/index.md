@@ -19,17 +19,11 @@ Creating a Bot account is a pretty straightforward process.
 * Copy the token using the "Copy" button.
   * Paste this into `config.json`_
 
-```md
-WARNING:
-Do not share your token with anyone. It is your password to the bot account
-```
+!> WARNING: Do not share your token with anyone. It is your password to the bot account
 
 ## Enabling Privileged Intents
 
-```md
-INFORMATION:
-Aometry requires the usage of privileged intents,  This section is required.
-```
+!> INFORMATION: Aometry requires the usage of privileged intents,  This section is required.
 
 * Make sure you're logged on to the Discord website.
 * Navigate to the application Page
@@ -37,7 +31,4 @@ Aometry requires the usage of privileged intents,  This section is required.
 * Navigate to the bot tab on the left side of the screen.
 * Scroll down to `Privileged Gateway Intents` section, enable both privileged intents and save your changes.
 
-```md
-INFORMATION:
-Aometry bots with over 100 servers require bot verification which is not covered in this guide.
-```
+?> INFORMATION: Aometry bots with over 100 servers require bot verification which is not covered in this guide.

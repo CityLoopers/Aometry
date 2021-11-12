@@ -7,10 +7,7 @@ This guide serves as a tutorial on creating cogs for Aometry v21.12. It will cov
 To start off, be sure that you have installed Node.JS v16 or higher and also have NPM.
 Next you need to decide if you want to develop against the Stable or Canary version of Aometry. Depending on what your goal is should help determine which version you need.
 
-```md
-NOTE
-The Canary version may have changes on it which breaks compatibility with the Stable version and other modules. If your goal is to support both version, make sure you build compatibility layers or use separate branches to keep compatibility until the next major release
-```
+?> NOTE: The Canary version may have changes on it which breaks compatibility with the Stable version and other modules. If your goal is to support both version, make sure you build compatibility layers or use separate branches to keep compatibility until the next major release
 
 Next download the bot from the GitHub repository and open it in your favourite code editor.
 
@@ -86,7 +83,5 @@ Congratulations, you've made your first Aometry Slash Command!
 To test your module, you will need a running instance of Aometry.
 Once the bot has started up do `[p]helloworld` The bot should respond with `Hello World!`. If it did, you have successfully created a module!
 
-```md
-INFO
-[p] is your bot prefix
-```
+
+?> INFO [p] is your bot prefix

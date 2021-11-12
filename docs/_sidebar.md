@@ -1,4 +1,5 @@
 <!-- docs/_sidebar.md -->
+# Aometry
 
 * [HOME](./)
 
