@@ -12,7 +12,7 @@ module.exports = async (client, pG, Ascii) => {
 
     if (!command.name) {
       const L = file.split('/')
-      return Table.addRow(`${L[8] + '/' + L[10]}`, '🔶 FAILED', 'Missing a name.')
+      return Table.addRow(`${L[9] + '/' + L[11]}`, '🔶 FAILED', 'Missing a name.')
     }
 
     if (!command.module) {
@@ -52,7 +52,6 @@ module.exports = async (client, pG, Ascii) => {
         const fullPermissions = command.reduce((accumulator, r) => {
           const roles = role(r.name)
           if (!roles) return accumulator
-          if (roles.isManaged) return accumulator
 
           const permissions = roles.reduce((a, r) => {
             return [...a, { id: r.id, type: 'ROLE', permission: true }]
