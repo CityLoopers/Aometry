@@ -1,8 +1,6 @@
 /* eslint-disable max-len */
 /* eslint-disable no-unused-vars */
-const { Permissions } = require('discord.js')
 module.exports = async (client, pG, Ascii) => {
-  const Perms = Object.keys(Permissions.FLAGS)
   const Table = new Ascii('Prefix Commands Loaded')
   Table.setHeading('Command', 'Module', 'Status')
 
