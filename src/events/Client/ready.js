@@ -2,7 +2,8 @@
 // eslint-disable-next-line no-unused-vars
 const { Client } = require('discord.js')
 const mongoose = require('mongoose')
-const { DBURL } = require('../../Structures/config.json')
+const { DBURL } = require('../../Structures/config/config.json')
+const Ascii = require('ascii-table')
 
 module.exports = {
   name: 'ready',
@@ -11,11 +12,18 @@ module.exports = {
      *
      * @param {Client} client
      */
-  execute (client) {
-    console.log(`✅ ${client.user.username} is now online.`)
-    client.guilds.cache.forEach((guild) => {
-      console.log(`Connected to: ${guild.name} | ID: ${guild.id}`)
+  async execute (client) {
+    const Table = new Ascii('Servers Connected')
+    const guilds = []
+    Table.setHeading('Name', 'ID')
+    await client.guilds.cache.forEach((guild) => {
+      guilds.push(guild.name)
+      return Table.addRow(guild.name, guild.id)
     })
+    Table.addRow('Number of Guilds', guilds.length)
+    console.log(Table.toString())
+
+    console.log(`✅ ${client.user.username} is now online.`)
 
     const activites = [
       { name: `/help | ${client.guilds.cache.size} servers!`, type: 'WATCHING' },

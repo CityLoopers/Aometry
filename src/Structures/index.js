@@ -4,16 +4,18 @@ const client = new Client({
   intents: 32767,
   partials: ['CHANNEL']
 })
-const { token } = require('./config.json')
+const { token } = require('./config/config.json')
 const { promisify } = require('util')
 const { glob } = require('glob')
 const pG = promisify(glob)
 const Ascii = require('ascii-table')
 
-client.commands = new Collection()
-client.buttons = new Collection();
+client.slashCommands = new Collection()
+client.buttons = new Collection()
+client.prefixCommands = new Collection()
+client.cooldowns = new Collection();
 
-['buttons', 'events', 'commands'].forEach(handler => {
+['buttons', 'events', 'slashCommands', 'prefixCommands'].forEach(handler => {
   require(`./handlers/${handler}`)(client, pG, Ascii)
 })
 
@@ -25,3 +27,4 @@ process.on('unhandledRejection', error => {
 })
 
 client.login(token)
+console.log(`${process.cwd()}`)
