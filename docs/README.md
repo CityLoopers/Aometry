@@ -33,8 +33,6 @@ An awesome multipurpose discord bot build using [discord.js v13](https://discord
 - Category 2: `command3`, `command4`
 - Category 3: `command5`, `command6`
 
-Complete bot platform documentation can be found at the [Wiki](https://github.com/Enroute-Transport/Aometry/wiki)
-
 ## 🤝 Contributing
 
 Contributing to the bot source code is encouraged. Create a pull request whenever you have a feature you'd like to add to the Core!

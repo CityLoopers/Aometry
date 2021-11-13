@@ -1,6 +1,4 @@
 <!-- docs/_sidebar.md -->
-# Aometry
-
 * [HOME](./)
 
 * [Tutorials](./tutorials/index)
