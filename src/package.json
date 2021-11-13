@@ -10,7 +10,7 @@
     "author": "finneh",
     "license": "ISC",
     "dependencies": {
-        "@discordjs/voice": "^0.7.2",
+        "@discordjs/voice": "^0.7.5",
         "ascii-table": "^0.0.9",
         "cheerio": "^1.0.0-rc.10",
         "discord.js": "^13.3.1",
