@@ -1,6 +1,5 @@
 /* eslint-disable max-len */
 /* eslint-disable no-unused-vars */
-const { Perms } = require('../validation/Permissions')
 const { Client } = require('discord.js')
 
 /**
