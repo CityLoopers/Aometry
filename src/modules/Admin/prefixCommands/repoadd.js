@@ -1,5 +1,8 @@
 /* eslint-disable node/handle-callback-err */
 const { CommandInteraction, MessageEmbed } = require('discord.js')
+const ghdownload = require('github-download')
+const exec = require('exec')
+    
 
 module.exports = {
   // Command Information Goes Here
@@ -12,8 +15,6 @@ module.exports = {
 * @param {Client} client
 */
   async execute (message, args, commandName, client) {
-    const ghdownload = require('github-download')
-    const exec = require('exec')
     const repo = args[0]
 
     ghdownload(repo, '../../../Structures/repos/')
