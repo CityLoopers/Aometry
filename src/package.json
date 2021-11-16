@@ -20,7 +20,7 @@
         "moment-timezone": "^0.5.34",
         "mongoose": "^6.0.12",
         "node-fetch": "^3.1.0",
-        "npmlog": "^5.0.1",
+        "npmlog": "^6.0.0",
         "puppeteer": "^11.0.0",
         "quick.db": "^7.1.3",
         "reconlx": "^2.5.1",
