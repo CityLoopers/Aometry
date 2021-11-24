@@ -32,12 +32,12 @@ module.exports = {
     switch (choices) {
       case 'guildMemberAdd':
         client.emit('guildMemberAdd', interaction.member)
-        interaction.reply({ content: 'Emited the event.', ephemeral: true })
+        interaction.reply({ content: 'Emitted the event.', ephemeral: true })
         break
       case 'guildMemberRemove':
 
         client.emit('guildMemberRemove', interaction.member)
-        interaction.reply({ content: 'Emited the event.', ephemeral: true })
+        interaction.reply({ content: 'Emitted the event.', ephemeral: true })
 
         break
     }
