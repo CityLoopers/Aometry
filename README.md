@@ -15,11 +15,19 @@ An awesome multipurpose discord bot build using [discord.js v13](https://discord
 - npm installed
 
 ## 🚀 Getting Started
-- Download Bot
+
+### Default install
+- Download the bot
 - Rename config-sample.json to config.json and fill the values
 - Run `npm i` to install all dependencies
 - After installation finishes use `node .` to start the bot
 - Once the bot is up and running, run `/guild-config` to configure aspects of the bot
+
+### Docker-compose install
+- Download the bot
+- Rename config-sample.json to config.json and fill the values (the db url is mongodb://root:root@mongo:27017/)
+- Run `docker-compose up`
+- Enjoy Aometry dockerized with mongodb
 
 ## Features
 

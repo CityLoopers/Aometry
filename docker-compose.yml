@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  bot:
+    build:
+      context: ./src
+      dockerfile: ./Dockerfile
+    depends_on:
+      - mongo
+    links:
+      - "mongo"
+      
+  mongo:
+    image: mongo
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
