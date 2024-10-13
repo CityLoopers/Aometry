@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/CityLoopers/Aometry/issues"
   },
-  "homepage": "https://github.com/CityLoopers/Aometry#readme"
+  "homepage": "https://github.com/CityLoopers/Aometry#readme",
+  "dependencies": {
+    "discord.js": "^14.16.3"
+  }
 }
