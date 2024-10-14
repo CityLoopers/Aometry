@@ -1,3 +1,4 @@
 # Ignore Discord.js build files
 /node_modules/
 
+.env
