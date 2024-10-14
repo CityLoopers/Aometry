@@ -23,6 +23,9 @@ loadEvents(client)
 
 client
   .login(BOT_TOKEN)
+  .then(() => {
+    console.log('✅ Error Handler loaded')
+  })
   .catch((err) => {
     console.log(err)
   })
