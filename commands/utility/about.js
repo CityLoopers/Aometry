@@ -36,11 +36,10 @@ module.exports = {
           ],
           author: {
             name: `Aometry v${client.botVersion}`,
-            url: 'https://i.imgur.com/8hQoOwS.png',
-            icon_url: 'https://i.imgur.com/8hQoOwS.png'
+            icon_url: `${client.user.displayAvatarURL({ dynamic: true })}`
           },
           thumbnail: {
-            url: 'https://i.imgur.com/8hQoOwS.png'
+            url: `${client.user.displayAvatarURL({ dynamic: true })}`
           }
         }
       ]
