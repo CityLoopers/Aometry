@@ -15,10 +15,10 @@ async function loadCommands (client) {
 
     commandsArray.push(command.data.toJSON())
 
-    table.addRow(command.data.name, '✅ SUCCESSFUL')
+    table.addRow(command.data.name, '✅')
   })
   client.application.commands.set(commandsArray)
-  return console.log(table.toString(), `Commands loaded: ${files.length}`)
+  return console.log(table.toString(), `\nCommands loaded: ${files.length}`)
 }
 
 module.exports = { loadCommands }
