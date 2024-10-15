@@ -5,6 +5,7 @@ module.exports = {
     .setName('server')
     .setDescription('Provides information about the server.'),
   async execute (interaction) {
+    const owner = await interaction.guild.fetchOwner()
     // interaction.guild is the object representing the Guild in which the command was run
     await interaction.reply({
       embeds: [
@@ -13,7 +14,7 @@ module.exports = {
           fields: [
             {
               name: 'Server Owner',
-              value: `${interaction.guild.owner}`,
+              value: `${owner}`,
               inline: true
             },
             {
