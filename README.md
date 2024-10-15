@@ -1,9 +1,10 @@
-<img width="200" height="200" align="left" style="float: left; margin: 0 10px 0 0;" alt="Karma" src="https://i.imgur.com/8hQoOwS.png"> 
+<img width="200" height="200" align="left" style="float: left; margin: 0 10px 0 0;" alt="Karma" src="https://camo.githubusercontent.com/c83d2316c5d2e2a6a50ce04825b0b4d9b0ec5d1a70ddbd17acb6f2d26cc4f291/68747470733a2f2f692e696d6775722e636f6d2f52646e424b76732e6a7067"> 
 
 # Aometry
 
 ![GitHub top language](https://img.shields.io/github/languages/top/CityLoopers/Aometry?color=0072CE&style=for-the-badge)
 ![Requires](https://img.shields.io/badge/requires-discordJS-5865F2?style=for-the-badge)
+![Code Style](https://img.shields.io/badge/Style_Guide-Standard-brightgreen?style=for-the-badge)
 
 Aometry is a powerful and versatile Discord bot designed to enhance your server experience. Built with discord.js v13, Aometry offers a wide range of features, including moderation tools, fun commands, utility functions, and more.  With its intuitive slash commands and context menus, Aometry is easy to use and integrates seamlessly into your Discord server.
 
