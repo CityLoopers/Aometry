@@ -27,7 +27,7 @@ async function loadEvents (client) {
       }
     }
 
-    table.addRow(event.name, '✅ SUCCESSFUL')
+    table.addRow(event.name, '✅')
   })
   return console.log(table.toString(), `\nEvents Loaded: ${files.length}`)
 }
