@@ -12,7 +12,22 @@ module.exports = {
    * @param { ChatInputCommandInteraction } interaction
    */
   async execute (interaction) {
-    await interaction.reply(
-      'Pong!')
+    await interaction.reply({
+      content: 'Pong!',
+      embeds: [
+
+        {
+          title: 'This is a test',
+          description: 'This is a test embed response!',
+          color: 5814783,
+          fields: [
+            {
+              name: 'Field 1',
+              value: 'Field Text'
+            }
+          ]
+        }
+      ]
+    })
   }
 }
