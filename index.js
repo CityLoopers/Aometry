@@ -14,6 +14,7 @@ const client = new Client({
   partials: [User, Message, GuildMember, ThreadMember]
 })
 
+client.botVersion = require('./package.json').version
 client.config = require('./config.js')
 client.events = new Collection()
 client.commands = new Collection()
