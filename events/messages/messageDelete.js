@@ -6,6 +6,7 @@ const { Message, Client } = require('discord.js')
 module.exports = {
   name: 'messageDelete',
   execute (message, client) {
+    if (!message.author) return
     if (message.author.bot) return
     if (!message.guild) return
     if (!message.content) return
