@@ -7,7 +7,6 @@ module.exports = {
      * @param {GuildMember} member
      */
   execute (member, client) {
-    console.log(member)
     const joinedTimestamp = parseInt(member.joinedTimestamp / 1000)
     const createdTimestamp = parseInt(member.user.createdTimestamp / 1000)
 
