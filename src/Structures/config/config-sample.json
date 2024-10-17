@@ -1,0 +1,6 @@
+{
+    "token": "bot-token-goes-here",
+    "DBURL": "db-url-goes-here",
+    "owners": "your-owner-id-goes-here",
+    "prefix": "your-prefix-goes-here"
+}
