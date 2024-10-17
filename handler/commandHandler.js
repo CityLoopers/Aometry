@@ -4,6 +4,7 @@ async function loadCommands (client) {
   const table = new Ascii('Commands Loaded').setHeading('Command', 'Status')
 
   await client.commands.clear()
+  await client.subCommands.clear()
 
   const commandsArray = []
 
@@ -11,6 +12,11 @@ async function loadCommands (client) {
 
   files.forEach((file) => {
     const command = require(file)
+
+    if (command.subCommands) { return client.subCommands.set(command.subCommand, command) }
+
+    if (!command.data) { return console.warn(`[WARN] Command ${file} is missing a data property.`) }
+
     client.commands.set(command.data.name, command)
 
     commandsArray.push(command.data.toJSON())
