@@ -1,0 +1,6 @@
+{
+    "editor.defaultFormatter": "iSayme.vscode-prettier-standard",
+    "[javascript]": {
+        "editor.defaultFormatter": "iSayme.vscode-prettier-standard"
+    }
+}
