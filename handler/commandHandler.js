@@ -1,3 +1,4 @@
+const { checkForRepoUpdates } = require('../Utilities/repositoryUpdateCheck')
 async function loadCommands (client) {
   const { loadFiles } = require('../Utilities/fileLoader')
   const Ascii = require('ascii-table')
@@ -13,7 +14,7 @@ async function loadCommands (client) {
   files.forEach((file) => {
     const command = require(file)
 
-    if (command.subCommands) { return client.subCommands.set(command.subCommand, command) }
+    if (command.subCommand) { return client.subCommands.set(command.subCommand, command) }
 
     if (!command.data) { return console.warn(`[WARN] Command ${file} is missing a data property.`) }
 
@@ -24,6 +25,11 @@ async function loadCommands (client) {
     table.addRow(command.data.name, '✅')
   })
   client.application.commands.set(commandsArray)
+
+  for (const repo of client.config.installedRepositories) {
+    checkForRepoUpdates(repo)
+  }
+
   return console.log(table.toString(), `\nCommands loaded: ${files.length}`)
 }
 
