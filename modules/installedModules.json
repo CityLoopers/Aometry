@@ -2,14 +2,21 @@
   {
     "name": "Core",
     "repository": "Aometry",
-    "path": "/modules/core",
-    "version": "1.2.0",
+    "path": "/modules/Core",
+    "version": "1.0.0",
     "compatible_with_bot_version": "^24.10.0"
   },
   {
-    "name": "Moderation",
+    "name": "Fun",
     "repository": "Aometry",
-    "path": "/modules/moderation",
+    "path": "/modules/Fun",
+    "version": "1.0.0",
+    "compatible_with_bot_version": "^24.10.0"
+  },
+  {
+    "name": "Miscellaneous",
+    "repository": "Aometry",
+    "path": "/modules/Miscellaneous",
     "version": "1.0.0",
     "compatible_with_bot_version": "^24.10.0"
   }
