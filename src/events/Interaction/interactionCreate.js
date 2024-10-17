@@ -4,8 +4,8 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 const { Client, CommandInteraction, MessageEmbed, MessageActionRow, MessageButton } = require('discord.js')
-const generateTranscript = require('reconlx')
 const db = require('quick.db')
+const owners = ('../../Structures/config.json')
 
 module.exports = {
   /**
@@ -17,7 +17,7 @@ module.exports = {
     const guildConfig = new db.table(`guildConfig_${interaction.guild.id}`)
     const ownerDM = await interaction.guild.fetchOwner()
     // Slash Command Handler
-    if (interaction.isCommand()) {
+    if (interaction.isCommand() || interaction.isContextMenu()) {
       const command = client.commands.get(interaction.commandName)
       if (!command) {
         const newLocal = '⛔ An error occured while running this command.'
@@ -30,50 +30,34 @@ module.exports = {
         }) && client.commands.delete(interaction.commandName)
       }
 
+      // eslint-disable-next-line eqeqeq
+      if (command.ownerOnly == true) {
+        if (owners === interaction.user.id) {
+          interaction.reply({ content: "You can't use this command!", ephemeral: true })
+          const naughtyLogChannel = client.channels.cache.get('894549317312995338')
+          naughtyLogChannel.send(`${interaction.user} (${interaction.user.id}) tried to run (${interaction.commandName}). They are NOT an OWNER. one moment while I warm up my D34DLY N3UR0T0X1N emitters...`)
+        } else {
+          command.execute(interaction, client)
+        }
+      }
+
       command.execute(interaction, client)
     }
     // Button Handler
     if (interaction.isButton()) {
-      switch (interaction.customId) {
-        case 'closeTicket':
-          const embed = new MessageEmbed()
-            .setTitle('Are you sure?')
-            .setDescription('Closing a ticket is permanent, are you sure your query is resolved?')
-
-          const row = new MessageActionRow().addComponents(
-            new MessageButton()
-              .setCustomId('imSure')
-              .setLabel('I\'m Sure!')
-              .setStyle('SUCCESS')
-          )
-          interaction.channel.send({ embeds: [embed], components: [row] })
-          break
-
-        case 'imSure':
-          const logsChannelId = guildConfig.get('logsChannel') || ownerDM.send(`Tried to send a logs message but no channel was defined. Please use \`/guild-config\` in the guild: ${guild}`)
-          const ticketClosed = new MessageEmbed()
-            .setColor('GREEN')
-            .setAuthor(
-              'Ticket Closed',
-                `${interaction.user.displayAvatarURL({ dynamic: true })}`
-            )
-            .setDescription(`Ticket Created by ${interaction.user}`)
-            .addField('Ticket Channel', `${interaction.channel}`)
-            .setThumbnail(`${interaction.user.displayAvatarURL({ dynamic: true })}`)
-
-          if (typeof logsChannelId === 'string') {
-            const logsChannel = interaction.guild.channels.cache.get(logsChannelId)
-            logsChannel.send({ embeds: [ticketClosed] })
-          } else {
-            logsChannelId
-          }
-          interaction.channel.setArchived()
-          break
-
-        default:
-          console.log('Button Pressed')
-          break
+      const button = client.buttons.get(interaction.customId)
+      if (!button) {
+        const newLocal = '⛔ An error occured while executing this button.'
+        return interaction.reply({
+          embeds: [
+            new MessageEmbed()
+              .setColor('RED')
+              .setDescription(newLocal)
+          ]
+        }) && client.buttons.delete(interaction.customId)
       }
+
+      button.execute(interaction, client)
     }
   }
 }

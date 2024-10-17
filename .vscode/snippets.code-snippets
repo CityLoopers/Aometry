@@ -16,14 +16,43 @@
 	// 	"description": "Log output to console"
 	// }
 	
-		"Start Command": {
-		  "prefix": ["stcom"],
-		  "body": ["const { CommandInteraction, MessageEmbed } = require('discord.js')"],
-		  "description": "Start a command boiler plate"
-		},
-		"Param": {
-			"prefix": ["dparam"],
-			"body": ["/**\n* @param {CommandInteraction} interaction\n* @param {Client} client\n*/"],
-			"description": "Discord Parameters Boilerplate"
-		  }
-	  }
+		
+			"slashcommand": {
+				"prefix": "scmd",
+				"body": [
+				  "const { CommandInteraction, MessageEmbed } = require('discord.js')",
+				  "",
+				  "module.exports = {",
+				  "    name: \"${1:command name}\",",
+				  "    description: \"${2:command description}\",",
+				  "    /**",
+				  "     * ",
+				  "     * @param {CommandInteraction} interaction ",
+				  "     */",
+				  "    async execute(interaction) {",
+				  "        $0",
+				  "    }",
+				  "}"
+				],
+				"description": "slashcommand"
+			  }, 
+			  "prefix": {
+				"prefix": "pcmd",
+				"body": [
+				  "const { Message, MessageEmbed } = require('discord.js')",
+				  "",
+				  "module.exports = {",
+				  "    name: \"${1:command name}\",",
+				  "    description: \"${2:command description}\",",
+				  "    /**",
+				  "     * ",
+				  "     * @param {Message} message ",
+				  "     */",
+				  "    async execute(message, args, commandName, client) {",
+				  "        $0",
+				  "    }",
+				  "}"
+				],
+				"description": "prefixcmd"
+			  }
+		}

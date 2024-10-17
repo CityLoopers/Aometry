@@ -1,0 +1,10 @@
+{
+    "module": "Core",
+    "commands" : [{
+        "name": "botinfo",
+        "description": "Provides information about Aometry"
+    },
+    { "name" : "contact",
+    "description": "Contacts the bot owner"}
+    ]
+}
