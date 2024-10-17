@@ -17,7 +17,7 @@
         "ascii-art-font": "^1.0.2",
         "ascii-art-table": "^1.0.1",
         "ascii-table": "^0.0.9",
-        "canvacord": "^5.2.3",
+        "canvacord": "^6.0.2",
         "canvas": "^2.8.0",
         "cheerio": "^1.0.0-rc.10",
         "discord-error-handler": "^1.3.3",
