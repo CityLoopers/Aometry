@@ -8,7 +8,7 @@ async function loadCommands (client) {
 
   const commandsArray = []
 
-  const files = await loadFiles('commands')
+  const files = await loadFiles('modules')
 
   files.forEach((file) => {
     const command = require(file)
