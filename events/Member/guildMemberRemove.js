@@ -11,12 +11,13 @@ module.exports = {
     const createdTimestamp = parseInt(member.user.createdTimestamp / 1000)
 
     const logsChannel = client.config.LOGS_CHANNEL
+    // TODO: Use the database to get the guild set log channel
     client.channels.cache.get(logsChannel).send({
       embeds: [
         {
           title: 'Member Left',
           description: `**<@${member.user.id}> (${member.user.tag})** left the server.`,
-          color: 0xFF0000,
+          color: 0xff0000,
           author: {
             name: member.user.tag,
             icon_url: member.user.displayAvatarURL({ dynamic: true })

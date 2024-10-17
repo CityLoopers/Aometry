@@ -10,7 +10,8 @@ module.exports = {
     const joinedTimestamp = parseInt(member.joinedTimestamp / 1000)
     const createdTimestamp = parseInt(member.user.createdTimestamp / 1000)
 
-    const logsChannel = client.config.LOGS_CHANNEL
+    const logsChannel = client.config.SYSTEM_LOGS_CHANNEL
+    // TODO: Use the database to get the guild set log channel
     client.channels.cache.get(logsChannel).send({
       embeds: [
         {
