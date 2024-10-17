@@ -4,11 +4,15 @@
 
 | Version | Supported          |
 | ------- | ------------------ |
-| 21.09b  | :white_check_mark: |
-| 21.09.X | :white_check_mark: |
-| < 21.09 | :x:                |
+| 21.10.x or higher  | ⛔ Unsupported |
+| 21.09.X | 🔶 Partial |
+| < 21.08 | ✅ Fully|
 
 
 ## Reporting a Vulnerability
 
-Please send an email or message to the developers, preferably on the Discord support server
+Please send a message to the developers on the [Discord Support Server](https://discord.gg/zturVQrhTG)
+
+Alternatively, you can create a GitHub issue and the developers will process it!
+
+
