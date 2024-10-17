@@ -19,6 +19,8 @@ client.events = new Collection()
 client.commands = new Collection()
 client.subCommands = new Collection()
 
+// TODO: Add check for update of installed repositories and / or modules
+
 require('./handler/llmHander.js')
 
 const { loadEvents } = require('./handler/eventHandler')
@@ -39,7 +41,7 @@ client
 
 process.on('unhandledRejection', (err) => {
   client.channels.cache
-    .get(client.config.LOGS_CHANNEL)
+    .get(client.config.SYSTEM_LOGS_CHANNEL)
     .send({
       embeds: [
         {
