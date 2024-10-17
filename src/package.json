@@ -12,7 +12,7 @@
     "license": "ISC",
     "dependencies": {
         "@discordjs/voice": "^0.7.2",
-        "anime-actions": "^1.0.6",
+        "anime-actions": "^2.1.2",
         "ascii-art": "^2.8.5",
         "ascii-art-font": "^1.0.2",
         "ascii-art-table": "^1.0.1",
