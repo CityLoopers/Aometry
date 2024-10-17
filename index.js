@@ -1,12 +1,11 @@
-const { BOT_TOKEN, LOGS_CHANNEL } = require('./config.js')
-
 const {
   Client,
   Collection,
   GatewayIntentBits,
   Partials
 } = require('discord.js')
-const { Guilds, GuildMembers, GuildMessages, MessageContent } = GatewayIntentBits
+const { Guilds, GuildMembers, GuildMessages, MessageContent } =
+  GatewayIntentBits
 const { User, Message, GuildMember, ThreadMember } = Partials
 
 const client = new Client({
@@ -18,13 +17,19 @@ client.botVersion = require('./package.json').version
 client.config = require('./config.js')
 client.events = new Collection()
 client.commands = new Collection()
+client.subCommands = new Collection()
+
 require('./handler/llmHander.js')
 
 const { loadEvents } = require('./handler/eventHandler')
 loadEvents(client)
 
+const { connect } = require('mongoose')
+connect(client.config.DB_URL, {})
+  .then(() => console.log('✅ Mongoose connected'))
+  .catch((err) => console.log(err))
 client
-  .login(BOT_TOKEN)
+  .login(client.config.BOT_TOKEN)
   .then(() => {
     console.log('✅ Error Handler loaded')
   })
@@ -34,7 +39,16 @@ client
 
 process.on('unhandledRejection', (err) => {
   client.channels.cache
-    .get(LOGS_CHANNEL)
-    .send({ embeds: [{ title: 'Unhandled Rejection', description: err.toString(), color: 0xFF0000, timestamp: new Date() }] })
+    .get(client.config.LOGS_CHANNEL)
+    .send({
+      embeds: [
+        {
+          title: 'Unhandled Rejection',
+          description: err.toString(),
+          color: 0xff0000,
+          timestamp: new Date()
+        }
+      ]
+    })
   console.error(err)
 })
