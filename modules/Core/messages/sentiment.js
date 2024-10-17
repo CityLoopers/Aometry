@@ -1,5 +1,5 @@
 const { ChatInputCommandInteraction, SlashCommandBuilder } = require('discord.js')
-const { classifyToxicity } = require('../../handler/llmHander.js')
+const { classifyToxicity } = require('../../../handler/llmHander.js')
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('sentiment')

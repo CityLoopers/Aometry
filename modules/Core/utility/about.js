@@ -4,7 +4,7 @@ const {
   Client
 } = require('discord.js')
 
-const { findAllConnectedUsers } = require('../../Utilities/findAllConnectedUsers')
+const { findAllConnectedUsers } = require('../../../Utilities/findAllConnectedUsers')
 
 module.exports = {
   data: new SlashCommandBuilder()
