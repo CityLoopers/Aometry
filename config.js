@@ -12,9 +12,15 @@ for (const config of requiredConfigs) {
   }
 }
 
+const installedRepositories = require('./repositories/installedRepositories.json')
+
+const installedModules = require('./modules/installedModules.json')
+
 module.exports = {
   BOT_TOKEN: process.env.BOT_TOKEN,
-  LOGS_CHANNEL: process.env.LOGS_CHANNEL,
+  SYSTEM_LOGS_CHANNEL: process.env.LOGS_CHANNEL,
   DB_URL: process.env.DB_URL,
-  DEV_ID: process.env.DEV_ID
+  DEV_ID: process.env.DEV_ID,
+  installedRepositories,
+  installedModules
 }
