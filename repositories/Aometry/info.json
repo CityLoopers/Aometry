@@ -1,0 +1,13 @@
+{
+  "name": "Aometry",
+  "description": "This is the 1st party Aometry repository",
+  "author": "Finneh",
+  "version": "1.0.0",
+  "type": "git",
+  "url": "https://github.com/aometry/repo.git",
+  "install_msg": "This repository comes preinstalled on all Aometry installations.",
+  "modules": [
+    "core",
+    "moderation"
+  ]
+}
